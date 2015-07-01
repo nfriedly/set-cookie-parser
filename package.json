@@ -1,0 +1,37 @@
+{
+  "name": "set-cookie-parser",
+  "version": "0.0.0",
+  "description": "Parses set-cookie headers into objects",
+  "homepage": "https://github.com/nfriedly/set-cookie-header",
+  "repository": "nfriedly/set-cookie-parser",
+  "author": {
+    "name": "Nathan Friedly",
+    "email": "",
+    "url": "http://nfriedly.com/"
+  },
+  "files": [
+    "lib"
+  ],
+  "main": "./lib/set-cookie.js",
+  "keywords": [
+    "set",
+    "cookie",
+    "cookie",
+    "header",
+    "parser"
+  ],
+  "devDependencies": {
+    "gulp": "^3.6.0",
+    "gulp-eslint": "^0.8.0",
+    "gulp-istanbul": "^0.8.1",
+    "gulp-jscs": "^1.1.0",
+    "gulp-jshint": "^1.5.3",
+    "gulp-mocha": "^2.0.0",
+    "gulp-plumber": "^1.0.0",
+    "jshint-stylish": "^1.0.0"
+  },
+  "scripts": {
+    "test": "gulp"
+  },
+  "license": "MIT"
+}
