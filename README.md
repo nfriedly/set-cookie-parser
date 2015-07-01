@@ -36,6 +36,27 @@ http.get('http://example.com', function(res) {
 }
 ```
 
+Example output:
+
+```js
+[
+    {
+        name: 'bam',
+        value: 'baz'
+    },
+    {
+        name: 'foo',
+        value: 'bar',
+        path: '/',
+        expires: new Date('Tue Jul 01 2025 06:01:11 GMT-0400 (EDT)'),
+        maxAge: 1000,
+        domain: '.example.com',
+        secure: true,
+        httpOnly: true
+    }
+]
+```
+
 ## License
 
 MIT © [Nathan Friedly]()
