@@ -1,6 +1,6 @@
 'use strict';
 var gulp = require('gulp');
-var mocha = require('gulp-mocha');
+var gulpMocha = require('gulp-mocha');
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var istanbul = require('gulp-istanbul');
@@ -35,7 +35,7 @@ gulp.task('test', ['pre-test'], function (cb) {
 
   gulp.src('test/**/*.js')
     .pipe(plumber())
-    .pipe(mocha({reporter: 'spec'}))
+    .pipe(gulpMocha({reporter: 'spec'}))
     .on('error', function (err) {
       mochaErr = err;
     })
