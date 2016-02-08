@@ -3,3 +3,11 @@ node_js:
   - '0.12'
   - 4.2
   - stable
+deploy:
+  provider: npm
+  email: nathan@nfriedly.com
+  api_key:
+    secure: lIf64m/fXM+QS3F10x7FEhIWfR8q8HEaKvUMeFD7cDwWFL6lvQrYyezD04zAaq4v8uBM3GtyvSyhepxrbyhp2DlQjtwVlOq6VaM2KMjAZlRyVtfFAZLWCFEUnv8I1cKsY49qTKg45fiK4816OKfxj8Lr4zOUp9GlqcsmV7+1hVcMY8BpYYjeSdwDfHmyKSHU/50bQ3zAWiaEGsZl7LMKJFW98S8TIxbVGUnTUWQQJWLL42x/1e6x5yCkHYpT2am8BpYlz3jqzE8kZ4LU7Yt5MH18ek16i4E54yT6OUJPCaR8d6dx3zMqfvE7MxybLElBaZDHz1CMvtiiT7A013hW+0msWPjHYtgqVHufAvznPDzxkjapO9eZqMbBlQNnUuPrbg8gX8J3By2X5b91VVly07Pf5PVeGsCfYdr+12CkJHwNWF/8UYN72dFHS57jJHOnXQ/U5jbgfjXi75GpfzKL4BEchbHZxKbTgLHI+XW9tlVbPl13exFa5BXsAJff/iaFoOaqYAvPMYf3A2HVZmuCw1fwJOlkKVLdQjJ/4aTdgQVuUQNdmhA000DFHb4ws1Sh3cWYvtHyMNJNjut8R96k911eGmJNstlEhfeLZEo+VyotJ+UAWyVi9NAmsvd4kasY3C4AaOFLflijNU44IdbR3CvNT4bO9UxqjsEPoiwDGyA=
+  on:
+    tags: true
+    repo: nfriedly/set-cookie-parser
