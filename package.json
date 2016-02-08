@@ -14,9 +14,10 @@
   ],
   "main": "./lib/set-cookie.js",
   "keywords": [
+    "set-cookie",
     "set",
     "cookie",
-    "cookie",
+    "cookies",
     "header",
     "parser"
   ],
