@@ -64,7 +64,7 @@ MIT © [Nathan Friedly]()
 
 [npm-image]: https://badge.fury.io/js/set-cookie-parser.svg
 [npm-url]: https://npmjs.org/package/set-cookie-parser
-[travis-image]: https://travis-ci.org/set-cookie-parser.svg?branch=master
-[travis-url]: https://travis-ci.org/set-cookie-parser
-[daviddm-image]: https://david-dm.org/set-cookie-parser.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/set-cookie-parser
+[travis-image]: https://travis-ci.org/nfriedly/set-cookie-parser.svg?branch=master
+[travis-url]: https://travis-ci.org/nfriedly/set-cookie-parser
+[daviddm-image]: https://david-dm.org/nfriedly/set-cookie-parser.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/nfriedly/set-cookie-parser
