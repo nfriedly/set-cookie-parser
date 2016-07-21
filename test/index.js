@@ -17,6 +17,13 @@ describe('set-cookie-parser', function () {
     assert.deepEqual(actual, expected);
   });
 
+  it('should parse a cookie with percent-encoding in the data', function () {
+    var cookieStr = 'foo=asdf%3Basdf%3Dtrue%3Basdf%3Dasdf%3Basdf%3Dtrue%40asdf';
+    var actual = setCookie.parse(cookieStr);
+    var expected = [{name: 'foo', value: 'asdf%3Basdf%3Dtrue%3Basdf%3Dasdf%3Basdf%3Dtrue%40asdf'}];
+    assert.deepEqual(actual, expected);
+  });
+
   it('should work on an array of headers', function () {
     var cookieStrs = ['bam=baz', 'foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure'];
     var actual = setCookie.parse(cookieStrs);
