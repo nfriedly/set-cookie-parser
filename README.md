@@ -29,8 +29,8 @@ $ npm install --save set-cookie-parser
 var http = require('http');
 var setCookie = require('set-cookie-parser');
 
-http.get('http://example.com', function(res) {
-  var cookies = setCookie.parse(res);
+http.get('http://example.com', function(req) {
+  var cookies = setCookie.parse(req);
   
   cookies.forEach(console.log);
 }
