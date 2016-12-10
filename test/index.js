@@ -27,7 +27,7 @@ describe('set-cookie-parser', function () {
   it('should parse a cookie with percent-encoding in the data', function () {
     var cookieStr = 'foo=asdf%3Basdf%3Dtrue%3Basdf%3Dasdf%3Basdf%3Dtrue%40asdf';
     var actual = setCookie.parse(cookieStr);
-    var expected = [{name: 'foo', value: 'asdf%3Basdf%3Dtrue%3Basdf%3Dasdf%3Basdf%3Dtrue%40asdf'}];
+    var expected = [{name: 'foo', value: 'asdf;asdf=true;asdf=asdf;asdf=true@asdf'}];
     assert.deepEqual(actual, expected);
   });
 
