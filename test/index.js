@@ -29,6 +29,14 @@ describe('set-cookie-parser', function () {
     var actual = setCookie.parse(cookieStr);
     var expected = [{name: 'foo', value: 'asdf;asdf=true;asdf=asdf;asdf=true@asdf'}];
     assert.deepEqual(actual, expected);
+
+    actual = setCookie.parse(cookieStr, {shouldDecodeValue: false});
+    expected = [{name: 'foo', value: 'asdf%3Basdf%3Dtrue%3Basdf%3Dasdf%3Basdf%3Dtrue%40asdf'}];
+    assert.deepEqual(actual, expected);
+
+    actual = setCookie.parse(cookieStr, {shouldDecodeValue: true});
+    expected = [{name: 'foo', value: 'asdf;asdf=true;asdf=asdf;asdf=true@asdf'}];
+    assert.deepEqual(actual, expected);
   });
 
   it('should work on an array of headers', function () {
