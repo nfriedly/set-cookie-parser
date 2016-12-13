@@ -67,6 +67,10 @@ Example output:
 ]
 ```
 
+## V2 Changes
+
+* Added decodeValues option (calls `decodeURIComponent()` on each cookie value), enabled by default.
+
 ## License
 
 MIT © [Nathan Friedly]()
