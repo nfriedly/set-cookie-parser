@@ -1,6 +1,6 @@
 {
   "name": "set-cookie-parser",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Parses set-cookie headers into objects",
   "homepage": "https://github.com/nfriedly/set-cookie-header",
   "repository": "nfriedly/set-cookie-parser",
