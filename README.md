@@ -3,6 +3,8 @@
 
 Accepts a single `set-cookie` header value, an array of `set-cookie` header values, or a response object that may have 0 or more `set-cookie` headers.
 
+Accepts an optional options object in which you could configure parser.
+
 Always returns an array of cookie objects. Each object will have, at a minimum a name and value and may have any of the other parameters depending on the set-cookie header:
 
 * name - cookie name (string)
@@ -30,8 +32,10 @@ var http = require('http');
 var setCookie = require('set-cookie-parser');
 
 http.get('http://example.com', function(res) {
-  var cookies = setCookie.parse(res);
-  
+  var cookies = setCookie.parse(res, {
+    decodeValues: true  // default: true
+  });
+
   cookies.forEach(console.log);
 }
 ```
