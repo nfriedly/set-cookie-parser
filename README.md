@@ -3,7 +3,13 @@
 
 Accepts a single `set-cookie` header value, an array of `set-cookie` header values, or a response object that may have 0 or more `set-cookie` headers.
 
-Accepts an optional options object in which you could configure parser.
+Also accepts an optional options object. Defaults: 
+
+```js
+{
+    decodeValues: true  // Calls dcodeURIComponent on each value - default: true
+}
+```
 
 Always returns an array of cookie objects. Each object will have, at a minimum a name and value and may have any of the other parameters depending on the set-cookie header:
 
