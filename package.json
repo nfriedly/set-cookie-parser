@@ -23,7 +23,7 @@
   ],
   "devDependencies": {
     "jshint": "^2.9.1",
-    "mocha": "^3.0.0"
+    "mocha": "^3.4.0"
   },
   "scripts": {
     "test": "jshint lib/*.js test/*.js && mocha"
