@@ -22,6 +22,7 @@ Always returns an array of cookie objects. Each object will have, at a minimum a
  * Note: when using with [express's res.cookie() method](http://expressjs.com/en/4x/api.html#res.cookie), multiply `maxAge` by 1000 to convert to miliseconds. 
 * secure - indicates that this cookie should only be sent over HTTPs (true or undefined)
 * httpOnly - indicates that this cookie should *not* be accessible to client-side JavaScript (true or undefined)
+* sameSite - indicates a cookie ought not to be sent along with cross-site requests (string or undefined)
 
 (The output format is loosely based on the input format of https://www.npmjs.com/package/cookie)
 
@@ -63,7 +64,8 @@ Example output:
         maxAge: 1000,
         domain: '.example.com',
         secure: true,
-        httpOnly: true
+        httpOnly: true,
+        sameSite: 'lax'
     }
 ]
 ```

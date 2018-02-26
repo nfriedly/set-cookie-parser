@@ -52,13 +52,13 @@ describe('set-cookie-parser', function () {
   it('should work on request objects', function () {
     var mockRequest = {
       headers: {
-        'set-cookie': ['bam=baz', 'foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure']
+        'set-cookie': ['bam=baz', 'foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure; SameSite=strict']
       }
     };
     var actual = setCookie.parse(mockRequest);
     var expected = [
       {name: 'bam', value: 'baz'},
-      {name: 'foo', value: 'bar', path: '/', expires: new Date('Tue Jul 01 2025 06:01:11 GMT-0400 (EDT)'), maxAge: 1000, domain: '.example.com', secure: true, httpOnly: true}
+      {name: 'foo', value: 'bar', path: '/', expires: new Date('Tue Jul 01 2025 06:01:11 GMT-0400 (EDT)'), maxAge: 1000, domain: '.example.com', secure: true, httpOnly: true, sameSite: 'strict'}
     ];
     assert.deepEqual(actual, expected);
   });
