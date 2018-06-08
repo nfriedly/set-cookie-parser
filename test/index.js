@@ -82,6 +82,8 @@ const cookieNoParams = 'sessionid=6ky4pkr7qoi4me7rwleyvxjove25huef';
 const cookieWithParams = `${cookieNoParams}; HttpOnly; Path=/`;
 const cookieWithExpires = 'cid=70125eaa-399a-41b2-b235-8a5092042dba; expires=Thu, 04-Jun-2020 12:17:56 GMT; Max-Age=63072000; Path=/; HttpOnly; Secure';
 const cookieWithExpiresAtEnd = 'client_id=70125eaa-399a-41b2-b235-8a5092042dba; Max-Age=63072000; Path=/; expires=Thu, 04-Jun-2020 12:17:56 GMT';
+const jsonCookie = `myJsonCookie=${JSON.stringify({foo:'bar', arr:[1,2,3]})}`;
+const jsonCookieWithParams = `${jsonCookie}; expires=Thu, 04-Jun-2020 12:17:56 GMT; Max-Age=63072000; Path=/; HttpOnly; Secure`;
 
 const firstWithParamSecondNoParam = `${cookieWithParams}, ${cookieNoParams}`;
 const threeNoParams = `${cookieNoParams}, ${cookieNoParams}, ${cookieNoParams}`;
@@ -247,6 +249,22 @@ describe('splitCookiesString', function () {
         cookieWithExpiresAtEnd,
         cookieWithExpiresAtEnd,
       ];
+    assert.deepEqual(actual, expected);
+  });
+
+  it('should not split json', function () {
+    var actual = splitCookiesString(jsonCookie);
+    var expected = [
+      jsonCookie
+    ];
+    assert.deepEqual(actual, expected);
+  });
+
+  it('should not split json with params', function () {
+    var actual = splitCookiesString(jsonCookieWithParams);
+    var expected = [
+      jsonCookieWithParams
+    ];
     assert.deepEqual(actual, expected);
   });
 });
