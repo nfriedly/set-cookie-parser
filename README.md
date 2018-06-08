@@ -3,7 +3,7 @@
 
 Accepts a single `set-cookie` header value, an array of `set-cookie` header values, or a Node.js response object that may have 0 or more `set-cookie` headers.
 
-Also accepts an optional options object. Defaults: 
+Also accepts an optional options object. Defaults:
 
 ```js
 {
@@ -19,7 +19,7 @@ Always returns an array of cookie objects. Each object will have, at a minimum a
 * domain - domain for the cookie (string or undefined, may begin with "." to indicate the named domain or any subdomain of it)
 * expires - absolute expiration date for the cookie (Date object or undefined)
 * maxAge - relative max age of the cookie in seconds from when the client receives it (integer or undefined)
- * Note: when using with [express's res.cookie() method](http://expressjs.com/en/4x/api.html#res.cookie), multiply `maxAge` by 1000 to convert to miliseconds. 
+ * Note: when using with [express's res.cookie() method](http://expressjs.com/en/4x/api.html#res.cookie), multiply `maxAge` by 1000 to convert to miliseconds.
 * secure - indicates that this cookie should only be sent over HTTPs (true or undefined)
 * httpOnly - indicates that this cookie should *not* be accessible to client-side JavaScript (true or undefined)
 * sameSite - indicates a cookie ought not to be sent along with cross-site requests (string or undefined)
@@ -46,6 +46,16 @@ http.get('http://example.com', function(res) {
 
   cookies.forEach(console.log);
 }
+
+var splitCookiesString = setCookie.splitCookiesString;
+
+var cookies = splitCookiesString('sessionid=123 expires=Thu, 04-Jun-2020 12:17:56 GMT, cid=ABC');
+
+console.log(cookies);
+// [
+//   'sessionid=123 expires=Thu, 04-Jun-2020 12:17:56 GMT',
+//   'cid=ABC',
+// ]
 ```
 
 Example output:
