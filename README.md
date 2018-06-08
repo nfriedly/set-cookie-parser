@@ -46,16 +46,6 @@ http.get('http://example.com', function(res) {
 
   cookies.forEach(console.log);
 }
-
-var splitCookiesString = setCookie.splitCookiesString;
-
-var cookies = splitCookiesString('sessionid=123 expires=Thu, 04-Jun-2020 12:17:56 GMT, cid=ABC');
-
-console.log(cookies);
-// [
-//   'sessionid=123 expires=Thu, 04-Jun-2020 12:17:56 GMT',
-//   'cid=ABC',
-// ]
 ```
 
 Example output:
@@ -80,9 +70,30 @@ Example output:
 ]
 ```
 
+## Usage in React Native
+
+React Native follows the Fetch spec more closely and combines all of the Set-Cookie header values into a single string. 
+The `splitCookieString` method reverses this.
+
+```js
+var setCookie = require('set-cookie-parser');
+
+var response = fetch(/*...*/);
+
+// This is mainly for React Native; Node.js does not combine set-cookie headers.
+var combinedCookieHeader = response.headers.get('Set-Cookie');
+var splitCookieHeaders = setCookie.splitCookiesString(combinedCookieHeader)
+var cookies = setCookie.parse(splitCookieHeaders);
+
+console.log(cookies); // should be an array of cookies
+```
+
+This behavior may become a default part of parse in the next major release, but requires the extra step for now.
+
 ## V2 Changes
 
 * Added decodeValues option (calls `decodeURIComponent()` on each cookie value), enabled by default.
+* Added `splitCookiesString` method.
 
 ## References
 
@@ -90,7 +101,7 @@ Example output:
 
 ## License
 
-MIT © [Nathan Friedly]()
+MIT © [Nathan Friedly](http://www.nfriedly.com/)
 
 
 [npm-image]: https://badge.fury.io/js/set-cookie-parser.svg
