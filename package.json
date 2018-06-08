@@ -22,11 +22,17 @@
     "parser"
   ],
   "devDependencies": {
-    "jshint": "^2.9.1",
-    "mocha": "^5.0.1"
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "husky": "^0.14.3",
+    "mocha": "^5.0.1",
+    "prettier": "^1.13.4",
+    "pretty-quick": "^1.6.0"
   },
   "scripts": {
-    "test": "jshint lib/*.js test/*.js && mocha"
+    "test": "eslint . && mocha",
+    "precommit": "npm test"
   },
   "license": "MIT",
   "dependencies": {}
