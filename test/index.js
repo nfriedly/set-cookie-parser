@@ -115,7 +115,7 @@ describe('splitCookiesString', function () {
   });
 
   it('should parse empty string', function () {
-    var actual = splitCookiesString(1);
+    var actual = splitCookiesString('');
     var expected = [];
     assert.deepEqual(actual, expected);
   });
