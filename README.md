@@ -19,7 +19,7 @@ Always returns an array of cookie objects. Each object will have, at a minimum a
 * domain - domain for the cookie (string or undefined, may begin with "." to indicate the named domain or any subdomain of it)
 * expires - absolute expiration date for the cookie (Date object or undefined)
 * maxAge - relative max age of the cookie in seconds from when the client receives it (integer or undefined)
- * Note: when using with [express's res.cookie() method](http://expressjs.com/en/4x/api.html#res.cookie), multiply `maxAge` by 1000 to convert to miliseconds.
+  * Note: when using with [express's res.cookie() method](http://expressjs.com/en/4x/api.html#res.cookie), multiply `maxAge` by 1000 to convert to miliseconds.
 * secure - indicates that this cookie should only be sent over HTTPs (true or undefined)
 * httpOnly - indicates that this cookie should *not* be accessible to client-side JavaScript (true or undefined)
 * sameSite - indicates a cookie ought not to be sent along with cross-site requests (string or undefined)
