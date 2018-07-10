@@ -31,7 +31,7 @@
     "pretty-quick": "^1.6.0"
   },
   "scripts": {
-    "test": "eslint . && mocha",
+    "test": "eslint . --ignore-pattern '!.eslintrc.js' && mocha",
     "precommit": "npm test"
   },
   "license": "MIT",

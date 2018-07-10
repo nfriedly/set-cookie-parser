@@ -1,12 +1,14 @@
+"use strict";
 module.exports = {
-    "env": {
-        "es6": true,
-        "node": true
-    },
-    "extends": ["eslint:recommended", "plugin:prettier/recommended"],
-    "rules": {
-        "prefer-const": "error",
-        "strict": "error",
-        "eqeqeq": "error"
-    }
+  parserOptions: { ecmaVersion: 5 },
+  env: {
+    node: true,
+    browser: true
+  },
+  extends: ["eslint:recommended", "plugin:prettier/recommended"],
+  rules: {
+    "prefer-const": "error",
+    strict: "error",
+    eqeqeq: "error"
+  }
 };
