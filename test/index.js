@@ -131,7 +131,7 @@ describe("set-cookie-parser", function() {
   it("should return object of cookies when result option is set to map", function() {
     var cookieStr =
       "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure";
-    var actual = setCookie.parse(cookieStr, { result: "map" });
+    var actual = setCookie.parse(cookieStr, { map: true });
     var expected = {
       foo: {
         name: "foo",
@@ -145,15 +145,6 @@ describe("set-cookie-parser", function() {
       }
     };
     assert.deepEqual(actual, expected);
-  });
-
-  it("should throw error when invalid result option is passed", function() {
-    var cookieString = "foo=bar;";
-    var options = { result: "invalid" };
-    var assertFn = function() {
-      return setCookie.parse(cookieString, options);
-    };
-    assert.throws(assertFn);
   });
 });
 

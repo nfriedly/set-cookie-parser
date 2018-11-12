@@ -8,11 +8,11 @@ Also accepts an optional options object. Defaults:
 ```js
 {
     decodeValues: true  // Calls dcodeURIComponent on each value - default: true
-    result: "list"      // Returns array of cookie objects
+    map: false          // Returns array of cookie objects - default: false
 }
 ```
 
-Returns either array of cookie objects or map of cookie objects based on `result` option. Each object will have, at a minimum a name and value and may have any of the other parameters depending on the set-cookie header:
+Returns either array of cookie objects or map of cookie objects based on `map` option. Each object will have, at a minimum a name and value and may have any of the other parameters depending on the set-cookie header:
 
 * name - cookie name (string)
 * value - cookie value (string)
@@ -57,7 +57,7 @@ var setCookie = require('set-cookie-parser');
 http.get('http://example.com', function(res) {
   var cookies = setCookie.parse(res, {
     decodeValues: true  // default: true
-    result: "map"       //default: "list"
+    map: true           //default: false
   });
 
   var desiredCookie = cookies[someCookieName];
