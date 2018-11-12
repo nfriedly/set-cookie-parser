@@ -8,10 +8,11 @@ Also accepts an optional options object. Defaults:
 ```js
 {
     decodeValues: true  // Calls dcodeURIComponent on each value - default: true
+    map: false          // Returns array of cookie objects - default: false
 }
 ```
 
-Always returns an array of cookie objects. Each object will have, at a minimum a name and value and may have any of the other parameters depending on the set-cookie header:
+Returns either array of cookie objects or map of cookie objects based on `map` option. Each object will have, at a minimum a name and value and may have any of the other parameters depending on the set-cookie header:
 
 * name - cookie name (string)
 * value - cookie value (string)
@@ -35,6 +36,7 @@ $ npm install --save set-cookie-parser
 
 ## Usage
 
+Get array of cookie objects
 ```js
 var http = require('http');
 var setCookie = require('set-cookie-parser');
@@ -47,9 +49,25 @@ http.get('http://example.com', function(res) {
   cookies.forEach(console.log);
 }
 ```
+Get map of cookie objects
+```js
+var http = require('http');
+var setCookie = require('set-cookie-parser');
+
+http.get('http://example.com', function(res) {
+  var cookies = setCookie.parse(res, {
+    decodeValues: true  // default: true
+    map: true           //default: false
+  });
+
+  var desiredCookie = cookies[someCookieName];
+  console.log(desiredCookie);
+}
+```
 
 Example output:
 
+Array of cookie objects
 ```js
 [
     {
@@ -68,6 +86,27 @@ Example output:
         sameSite: 'lax'
     }
 ]
+```
+
+Map of cookie objects
+```js
+{
+    bam: {
+        name: 'bam',
+        value: 'baz'
+    },
+    foo: {
+        name: 'foo',
+        value: 'bar',
+        path: '/',
+        expires: new Date('Tue Jul 01 2025 06:01:11 GMT-0400 (EDT)'),
+        maxAge: 1000,
+        domain: '.example.com',
+        secure: true,
+        httpOnly: true,
+        sameSite: 'lax'
+    }
+}
 ```
 
 ## Usage in React Native

@@ -127,6 +127,25 @@ describe("set-cookie-parser", function() {
     var expected = [];
     assert.deepEqual(actual, expected);
   });
+
+  it("should return object of cookies when result option is set to map", function() {
+    var cookieStr =
+      "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure";
+    var actual = setCookie.parse(cookieStr, { map: true });
+    var expected = {
+      foo: {
+        name: "foo",
+        value: "bar",
+        path: "/",
+        expires: new Date("Tue Jul 01 2025 06:01:11 GMT-0400 (EDT)"),
+        maxAge: 1000,
+        domain: ".example.com",
+        secure: true,
+        httpOnly: true
+      }
+    };
+    assert.deepEqual(actual, expected);
+  });
 });
 
 const splitCookiesString = setCookie.splitCookiesString;
