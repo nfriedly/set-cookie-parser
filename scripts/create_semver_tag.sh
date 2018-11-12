@@ -19,7 +19,6 @@ export BRANCH="master"
 if [ "$TRAVIS_REPO_SLUG" == "$REPO" ] \
   && [ "$TRAVIS_PULL_REQUEST" == "false" ] \
   && [ "$TRAVIS_BRANCH" == "$BRANCH" ] \
-  && [ "$TRAVIS_BUILD_NUMBER.1" == "$TRAVIS_JOB_NUMBER" ] \
   && [[ "$TRAVIS_COMMIT_MESSAGE" =~ \[semver\ (major|minor|patch)\] ]] \
   ; then
 
