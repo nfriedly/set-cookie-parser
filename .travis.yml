@@ -23,7 +23,7 @@ jobs:
         provider: npm
         email: nathan@nfriedly.com
         api_key:
-          secure: UQXR82XpBMROKVozdZiAPdFYvhOu56sp2n5U7ZMIe9+2i75f8KYa335Tdgx5OiZi8LJK6TwPCH5DG5kHgJm1iNvseIEEsn19gBzHxG4eezhCVwdz2C93eDBlNrcogTQn9aQ6YOqgiDkS9kd0TiMo0bu45LB8yMLTiiM1pN788nrrtULQVlCH1p2Xzwni0NAhfG6nxGI47dbLG6+LOo+ZE8lAkhPcuU7vQCtI5QQ7m2XLvzNiYoTzXGwBSN7Z5j10O/QO/lll/JWY3bS3yKL8+7zVqY2q7bno1VP2LVAB4A979OQxUeUi+5N99/BRa2GxHkodASZi/0NVAUEt5zk/G43GNUIuXA8Tfp6jXjBRJaTAAxwFJJd3qPZ5vVEDJ7g/RjHSV11FDNVL1PiIahnB2s4GRXcNQ/GvnfmfhifTzapjUGp21LW1yMlcTYiHXMsowwztFyVWFhzRnNzy8eCZRE0eSND6QLkJh1FoeQ6nNWqGXPeTVQMf4OGKiJ37EKwqt/BbHalWAJbnfDAxvP4cFAx2jj8nc+0BAT4a013QSQ+h/QFCfaz3mOPvkTcKSzQVzr9aqbE2yeiYwsJsh0BD38XqX6AsURfBFcIJ+zwCR6oZx+34UR57co3p5LE8OatgRZTTyCl+9znsjyRPG3vamgxP/5UrBbJr9c/mTBN/dBw=
+          secure: "sZS9TjlBGdnKThzZLRhy3A3UN87FYcLoXDW2QdksLXe6vyt09W9OWFZuDdJOxFFsyr+M9G5whCSJM/eKq/ns7HtruqSVVEQQfgwsBARJMUhPV9RveMPbRyHy2LeaztVxrJsYwaV4F4cLJQpKcmGGjnPfp195Bq3XljFt2kQGvDVPWq+mhrW0Pz8rdKO5c9cGukXvcZga3YsHHkszERUo9b6bPTkPZfVhm+JEvhdhKT90CtCB291DvsEBEFcbV+S9aYjZvljCFeI5p5CoTF36hDKlAFY1Ya7/ZW6vMj8pL4lZ9bujAM9X5GfSzfj6HdEZm7UYmJjAJyxpJGZSou/Cf8HMiSskpkkwaK384Kv+nBCNtNvsK/qhCVgOv9rN7Re7ov74XHOwsF1sF4iE7yPbAUa8/gVgzncu/GI+wnfkud6WOlIH9F6sO43nQScwstXVLTogxmYrnTtw9efhL8pXCzG3lR9iTq49D9eV6dFHt2q1CIw0c9UCm1Y+XwqslrxYfgxsNThGqQDpZDlOBtwnzthAf0uu1akFmwRxDLpRlDVKXlHj/GOKcRpCwrKfau5agH1cKlkfKqi9BYepR3ROH3vcl4RklUUZUzD4QvSuYfwfIxKviOlZaipSjFzpi5V6oHRMCil41SavovCaNGmoOBqK8gO2Sz2CAuY76ab3Ljo="
         on:
           tags: true
           repo: nfriedly/set-cookie-parser
