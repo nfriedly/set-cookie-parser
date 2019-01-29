@@ -8,7 +8,7 @@ Also accepts an optional options object. Defaults:
 ```js
 {
     decodeValues: true  // Calls dcodeURIComponent on each value - default: true
-    map: false          // Returns array of cookie objects - default: false
+    map: false          // Return an object instead of an array - default: false
 }
 ```
 
