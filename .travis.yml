@@ -12,7 +12,7 @@ node_js:
 stages:
   - test
   - name: deploy
-    if: tag IS present AND repo = 'nfriedly/express-rate-limit'
+    if: tag IS present AND repo = 'nfriedly/set-cookie-parser'
 
 jobs:
   include:
