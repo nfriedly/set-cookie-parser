@@ -11,16 +11,11 @@ node_js:
 
 stages:
   - test
-  - name: tag
-    if: type IS 'push' AND branch IS 'master' AND repo = 'nfriedly/express-rate-limit'
   - name: deploy
     if: tag IS present AND repo = 'nfriedly/express-rate-limit'
 
 jobs:
   include:
-    - stage: tag
-      node_js: stable
-      script: scripts/create_semver_tag.sh
     - stage: deploy
       node_js: stable
       script: skip
