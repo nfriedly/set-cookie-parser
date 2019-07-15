@@ -1,10 +1,8 @@
 language: node_js
 node_js:
-- 4
-- 6
-- 8
-- 10
-- stable
+  - node # latest stable Node.js release
+  - lts/* # latest LTS Node.js release
+  - 8
 
 # wait until after all node.js versions pass before deploying
 # https://docs.travis-ci.com/user/build-stages/deploy-npm/
