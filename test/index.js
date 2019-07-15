@@ -119,6 +119,33 @@ describe("set-cookie-parser", function() {
     assert.deepEqual(actual, expected);
   });
 
+  it("should work with strangely capitalized set-cookie key", function() {
+    var mockRequest = {
+      headers: {
+        "sEt-CookIe": [
+          "bam=baz",
+          "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure; SameSite=strict"
+        ]
+      }
+    };
+    var actual = setCookie.parse(mockRequest);
+    var expected = [
+      { name: "bam", value: "baz" },
+      {
+        name: "foo",
+        value: "bar",
+        path: "/",
+        expires: new Date("Tue Jul 01 2025 06:01:11 GMT-0400 (EDT)"),
+        maxAge: 1000,
+        domain: ".example.com",
+        secure: true,
+        httpOnly: true,
+        sameSite: "strict"
+      }
+    ];
+    assert.deepEqual(actual, expected);
+  });
+
   it("should work on request objects that don't have any set-cookie headers", function() {
     var mockRequest = {
       headers: {}
