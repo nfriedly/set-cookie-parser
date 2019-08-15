@@ -129,6 +129,24 @@ console.log(cookies); // should be an array of cookies
 
 This behavior may become a default part of parse in the next major release, but requires the extra step for now.
 
+## API
+
+### parse(input, [options])
+
+Parses cookies from a string, array of strings, or a http response object. 
+Always returns an array, regardless of input format.
+
+### parseString(individualSetCookieHeader, options)
+
+Parses a single set-cookie header value string. Options object is required. Used under-the-hood by `parse()`. 
+Returns an object.
+
+### splitCookieString(combinedSetCookieHeader)
+
+It's uncommon, but the HTTP spec does allow for multiple of the same header to have their values combined (comma-separated) into a single header. 
+This method splits apart a combined header without choking on commas that appear within a cookie's value (or expiration date).
+Returns an array of strings that may be passed to `parse()`.
+
 ## V2 Changes
 
 * Added decodeValues option (calls `decodeURIComponent()` on each cookie value), enabled by default.
