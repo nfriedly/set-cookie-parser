@@ -62,7 +62,7 @@ http.get('http://example.com', function(res) {
 
   var desiredCookie = cookies[someCookieName];
   console.log(desiredCookie);
-}
+});
 ```
 
 Example output:
