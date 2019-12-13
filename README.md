@@ -112,7 +112,7 @@ Map of cookie objects
 ## Usage in React Native
 
 React Native follows the Fetch spec more closely and combines all of the Set-Cookie header values into a single string. 
-The `splitCookieString` method reverses this.
+The `splitCookiesString` method reverses this.
 
 ```js
 var setCookie = require('set-cookie-parser');
@@ -141,7 +141,7 @@ Always returns an array, regardless of input format.
 Parses a single set-cookie header value string. Options object is required. Used under-the-hood by `parse()`. 
 Returns an object.
 
-### splitCookieString(combinedSetCookieHeader)
+### splitCookiesString(combinedSetCookieHeader)
 
 It's uncommon, but the HTTP spec does allow for multiple of the same header to have their values combined (comma-separated) into a single header. 
 This method splits apart a combined header without choking on commas that appear within a cookie's value (or expiration date).
