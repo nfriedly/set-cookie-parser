@@ -136,9 +136,9 @@ This behavior may become a default part of parse in the next major release, but 
 Parses cookies from a string, array of strings, or a http response object. 
 Always returns an array, regardless of input format. (Unless the `map` option is set, in which case it always returns an object.)
 
-### parseString(individualSetCookieHeader, options)
+### parseString(individualSetCookieHeader, [options])
 
-Parses a single set-cookie header value string. Options object is required. Used under-the-hood by `parse()`. 
+Parses a single set-cookie header value string. Options default is `{decodeValues: true}`. Used under-the-hood by `parse()`. 
 Returns an object.
 
 ### splitCookiesString(combinedSetCookieHeader)
