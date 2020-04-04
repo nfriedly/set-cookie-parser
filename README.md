@@ -7,8 +7,9 @@ Also accepts an optional options object. Defaults:
 
 ```js
 {
-    decodeValues: true  // Calls dcodeURIComponent on each value - default: true
-    map: false          // Return an object instead of an array - default: false
+    decodeValues: true,  // Calls dcodeURIComponent on each value - default: true
+    map: false,          // Return an object instead of an array - default: false
+    silent: false,       // Suppress the warning that is loged when called on a request instead of a response - default: false
 }
 ```
 
