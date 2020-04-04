@@ -11,7 +11,7 @@ describe("set-cookie-parser", function () {
   });
 
   // see #34, #36
-  it("log a warning on request-like objects", function () {
+  it("should log a warning on request-like objects", function () {
     sandbox.stub(console, "warn");
 
     var mockRequest = {
@@ -25,7 +25,7 @@ describe("set-cookie-parser", function () {
     sandbox.assert.calledOnce(console.warn);
   });
 
-  it("not log a warning on request-like objects when slient: true is set", function () {
+  it("should not log a warning on request-like objects when slient: true is set", function () {
     sandbox.stub(console, "warn");
 
     var mockRequest = {
