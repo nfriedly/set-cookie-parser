@@ -92,8 +92,8 @@ describe("set-cookie-parser", function() {
     assert.deepEqual(actual, expected);
   });
 
-  it("should work on request objects", function() {
-    var mockRequest = {
+  it("should work on response objects", function() {
+    var mockResponse = {
       headers: {
         "set-cookie": [
           "bam=baz",
@@ -101,7 +101,7 @@ describe("set-cookie-parser", function() {
         ]
       }
     };
-    var actual = setCookie.parse(mockRequest);
+    var actual = setCookie.parse(mockResponse);
     var expected = [
       { name: "bam", value: "baz" },
       {
@@ -120,7 +120,7 @@ describe("set-cookie-parser", function() {
   });
 
   it("should work with strangely capitalized set-cookie key", function() {
-    var mockRequest = {
+    var mockResponse = {
       headers: {
         "sEt-CookIe": [
           "bam=baz",
@@ -128,7 +128,7 @@ describe("set-cookie-parser", function() {
         ]
       }
     };
-    var actual = setCookie.parse(mockRequest);
+    var actual = setCookie.parse(mockResponse);
     var expected = [
       { name: "bam", value: "baz" },
       {
@@ -146,11 +146,11 @@ describe("set-cookie-parser", function() {
     assert.deepEqual(actual, expected);
   });
 
-  it("should work on request objects that don't have any set-cookie headers", function() {
-    var mockRequest = {
+  it("should work on response objects that don't have any set-cookie headers", function() {
+    var mockResponse = {
       headers: {}
     };
-    var actual = setCookie.parse(mockRequest);
+    var actual = setCookie.parse(mockResponse);
     var expected = [];
     assert.deepEqual(actual, expected);
   });
