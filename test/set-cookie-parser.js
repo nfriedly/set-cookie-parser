@@ -2,14 +2,14 @@
 var assert = require("assert");
 var setCookie = require("../lib/set-cookie.js");
 
-describe("set-cookie-parser", function() {
-  it("should parse a simple set-cookie header", function() {
+describe("set-cookie-parser", function () {
+  it("should parse a simple set-cookie header", function () {
     var actual = setCookie.parse("foo=bar;");
     var expected = [{ name: "foo", value: "bar" }];
     assert.deepEqual(actual, expected);
   });
 
-  it("should parse a complex set-cookie header", function() {
+  it("should parse a complex set-cookie header", function () {
     var cookieStr =
       "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure";
     var actual = setCookie.parse(cookieStr);
@@ -22,13 +22,13 @@ describe("set-cookie-parser", function() {
         maxAge: 1000,
         domain: ".example.com",
         secure: true,
-        httpOnly: true
-      }
+        httpOnly: true,
+      },
     ];
     assert.deepEqual(actual, expected);
   });
 
-  it("should parse a weird but valid cookie", function() {
+  it("should parse a weird but valid cookie", function () {
     var cookieStr =
       "foo=bar=bar&foo=foo&John=Doe&Doe=John; Max-Age=1000; Domain=.example.com; Path=/; HttpOnly; Secure";
     var actual = setCookie.parse(cookieStr);
@@ -40,17 +40,17 @@ describe("set-cookie-parser", function() {
         maxAge: 1000,
         domain: ".example.com",
         secure: true,
-        httpOnly: true
-      }
+        httpOnly: true,
+      },
     ];
     assert.deepEqual(actual, expected);
   });
 
-  it("should parse a cookie with percent-encoding in the data", function() {
+  it("should parse a cookie with percent-encoding in the data", function () {
     var cookieStr = "foo=asdf%3Basdf%3Dtrue%3Basdf%3Dasdf%3Basdf%3Dtrue%40asdf";
     var actual = setCookie.parse(cookieStr);
     var expected = [
-      { name: "foo", value: "asdf;asdf=true;asdf=asdf;asdf=true@asdf" }
+      { name: "foo", value: "asdf;asdf=true;asdf=asdf;asdf=true@asdf" },
     ];
     assert.deepEqual(actual, expected);
 
@@ -58,22 +58,22 @@ describe("set-cookie-parser", function() {
     expected = [
       {
         name: "foo",
-        value: "asdf%3Basdf%3Dtrue%3Basdf%3Dasdf%3Basdf%3Dtrue%40asdf"
-      }
+        value: "asdf%3Basdf%3Dtrue%3Basdf%3Dasdf%3Basdf%3Dtrue%40asdf",
+      },
     ];
     assert.deepEqual(actual, expected);
 
     actual = setCookie.parse(cookieStr, { decodeValues: true });
     expected = [
-      { name: "foo", value: "asdf;asdf=true;asdf=asdf;asdf=true@asdf" }
+      { name: "foo", value: "asdf;asdf=true;asdf=asdf;asdf=true@asdf" },
     ];
     assert.deepEqual(actual, expected);
   });
 
-  it("should work on an array of headers", function() {
+  it("should work on an array of headers", function () {
     var cookieStrs = [
       "bam=baz",
-      "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure"
+      "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure",
     ];
     var actual = setCookie.parse(cookieStrs);
     var expected = [
@@ -86,20 +86,20 @@ describe("set-cookie-parser", function() {
         maxAge: 1000,
         domain: ".example.com",
         secure: true,
-        httpOnly: true
-      }
+        httpOnly: true,
+      },
     ];
     assert.deepEqual(actual, expected);
   });
 
-  it("should work on response objects", function() {
+  it("should work on response objects", function () {
     var mockResponse = {
       headers: {
         "set-cookie": [
           "bam=baz",
-          "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure; SameSite=strict"
-        ]
-      }
+          "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure; SameSite=strict",
+        ],
+      },
     };
     var actual = setCookie.parse(mockResponse);
     var expected = [
@@ -113,20 +113,20 @@ describe("set-cookie-parser", function() {
         domain: ".example.com",
         secure: true,
         httpOnly: true,
-        sameSite: "strict"
-      }
+        sameSite: "strict",
+      },
     ];
     assert.deepEqual(actual, expected);
   });
 
-  it("should work with strangely capitalized set-cookie key", function() {
+  it("should work with strangely capitalized set-cookie key", function () {
     var mockResponse = {
       headers: {
         "sEt-CookIe": [
           "bam=baz",
-          "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure; SameSite=strict"
-        ]
-      }
+          "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure; SameSite=strict",
+        ],
+      },
     };
     var actual = setCookie.parse(mockResponse);
     var expected = [
@@ -140,22 +140,22 @@ describe("set-cookie-parser", function() {
         domain: ".example.com",
         secure: true,
         httpOnly: true,
-        sameSite: "strict"
-      }
+        sameSite: "strict",
+      },
     ];
     assert.deepEqual(actual, expected);
   });
 
-  it("should work on response objects that don't have any set-cookie headers", function() {
+  it("should work on response objects that don't have any set-cookie headers", function () {
     var mockResponse = {
-      headers: {}
+      headers: {},
     };
     var actual = setCookie.parse(mockResponse);
     var expected = [];
     assert.deepEqual(actual, expected);
   });
 
-  it("should return object of cookies when result option is set to map", function() {
+  it("should return object of cookies when result option is set to map", function () {
     var cookieStr =
       "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure";
     var actual = setCookie.parse(cookieStr, { map: true });
@@ -168,8 +168,8 @@ describe("set-cookie-parser", function() {
         maxAge: 1000,
         domain: ".example.com",
         secure: true,
-        httpOnly: true
-      }
+        httpOnly: true,
+      },
     };
     assert.deepEqual(actual, expected);
   });

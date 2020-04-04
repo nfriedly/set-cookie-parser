@@ -22,17 +22,19 @@
     "parser"
   ],
   "devDependencies": {
-    "eslint": "^6.0.1",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "husky": "^3.0.0",
-    "mocha": "^6.1.4",
-    "prettier": "^1.18.2",
-    "pretty-quick": "^1.11.1",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "mocha": "^7.1.1",
+    "prettier": "^2.0.2",
+    "pretty-quick": "^2.0.1",
     "sinon": "^9.0.1"
   },
   "scripts": {
-    "test": "eslint . --ignore-pattern '!.eslintrc.js' && mocha",
+    "lint": "eslint . --ignore-pattern '!.eslintrc.js'",
+    "test": "npm run lint && mocha",
+    "autofix": "npm run lint -- --fix",
     "precommit": "npm test"
   },
   "license": "MIT",
