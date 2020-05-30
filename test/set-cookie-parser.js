@@ -9,6 +9,23 @@ describe("set-cookie-parser", function () {
     assert.deepEqual(actual, expected);
   });
 
+  it("should return empty array on falsy input", function () {
+    var cookieStr = "";
+    var actual = setCookie.parse(cookieStr);
+    var expected = [];
+    assert.deepEqual(actual, expected);
+
+    cookieStr = null;
+    actual = setCookie.parse(cookieStr);
+    expected = [];
+    assert.deepEqual(actual, expected);
+
+    cookieStr = undefined;
+    actual = setCookie.parse(cookieStr);
+    expected = [];
+    assert.deepEqual(actual, expected);
+  });
+
   it("should parse a complex set-cookie header", function () {
     var cookieStr =
       "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure";
@@ -171,6 +188,23 @@ describe("set-cookie-parser", function () {
         httpOnly: true,
       },
     };
+    assert.deepEqual(actual, expected);
+  });
+
+  it("should return empty object on falsy input when result options is set to map", function () {
+    var cookieStr = "";
+    var actual = setCookie.parse(cookieStr, { map: true });
+    var expected = {};
+    assert.deepEqual(actual, expected);
+
+    cookieStr = null;
+    actual = setCookie.parse(cookieStr, { map: true });
+    expected = {};
+    assert.deepEqual(actual, expected);
+
+    cookieStr = undefined;
+    actual = setCookie.parse(cookieStr, { map: true });
+    expected = {};
     assert.deepEqual(actual, expected);
   });
 });
