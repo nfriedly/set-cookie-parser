@@ -1,5 +1,11 @@
-# set-cookie-parser [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
-> Parses set-cookie headers into objects
+# set-cookie-parser 
+
+[![NPM version][npm-image]][npm-url] 
+[![Build Status][travis-image]][travis-url] 
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![npm downloads](https://img.shields.io/npm/dm/express-rate-limit)][npm-url]
+
+Parses set-cookie headers into objects
 
 Accepts a single `set-cookie` header value, an array of `set-cookie` header values, or a Node.js response object that may have 0 or more `set-cookie` headers.
 
