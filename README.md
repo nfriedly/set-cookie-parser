@@ -3,7 +3,7 @@
 [![NPM version][npm-image]][npm-url] 
 [![Build Status][travis-image]][travis-url] 
 [![Dependency Status][daviddm-image]][daviddm-url]
-[![npm downloads](https://img.shields.io/npm/dm/express-rate-limit)][npm-url]
+[![npm downloads](https://img.shields.io/npm/dm/set-cookie-parser)][npm-url]
 
 Parses set-cookie headers into objects
 
