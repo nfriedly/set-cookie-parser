@@ -88,10 +88,15 @@ describe("set-cookie-parser", function () {
   });
 
   it("should handle the case when value is not UTF-8 encoded", function () {
-    var cookieStr = "foo=R%F3r%EB%80%8DP%FF%3B%2C%23%9A%0CU%8E%A2C8%D7%3C%3C%B0%DF%17%60%F7Y%DB%16%8BQ%D6%1A";
+    var cookieStr =
+      "foo=R%F3r%EB%80%8DP%FF%3B%2C%23%9A%0CU%8E%A2C8%D7%3C%3C%B0%DF%17%60%F7Y%DB%16%8BQ%D6%1A";
     var actual = setCookie.parse(cookieStr, { decodeValues: true });
     var expected = [
-      { name: "foo", value: "R%F3r%EB%80%8DP%FF%3B%2C%23%9A%0CU%8E%A2C8%D7%3C%3C%B0%DF%17%60%F7Y%DB%16%8BQ%D6%1A" },
+      {
+        name: "foo",
+        value:
+          "R%F3r%EB%80%8DP%FF%3B%2C%23%9A%0CU%8E%A2C8%D7%3C%3C%B0%DF%17%60%F7Y%DB%16%8BQ%D6%1A",
+      },
     ];
     assert.deepEqual(actual, expected);
   });
