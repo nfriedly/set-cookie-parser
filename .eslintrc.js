@@ -1,6 +1,6 @@
 "use strict";
 module.exports = {
-  parserOptions: { ecmaVersion: 5 },
+  parserOptions: { ecmaVersion: 6 },
   env: {
     node: true,
     browser: true,
