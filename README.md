@@ -116,6 +116,30 @@ Map of cookie objects
 }
 ```
 
+### Creating a new, modified set-cookie header
+
+This library can be used in conjunction with the [cookie](https://www.npmjs.com/package/cookie) library to modify and replace set-cookie headers:
+
+```js
+const libCookie = require('cookie');
+const setCookie = require('set-cookie-parser');
+
+function modifySetCookie(res){
+  // parse the set-cookie headers with this library
+  let cookies = setCookie.parse(res);
+  
+  // modify the cookies here
+  // ...
+  
+  // create new set-cookie headers using the cookie library
+  res.headers['set-cookie'] = cookies.map(function(cookie) {
+      return libCookie.serialize(cookie.name, cookie.value, cookie);
+  });
+}
+```
+
+See a real-world example of this in [unblocker](https://github.com/nfriedly/node-unblocker/blob/a894c0861af26489d2467c94fbc500770f57464f/lib/cookies.js#L62-L76)
+
 ## Usage in React Native
 
 React Native follows the Fetch spec more closely and combines all of the Set-Cookie header values into a single string. 
