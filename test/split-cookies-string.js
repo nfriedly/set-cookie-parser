@@ -1,6 +1,5 @@
-"use strict";
 var assert = require("assert");
-var setCookie = require("../lib/set-cookie.js");
+var setCookie = require("../src/set-cookie.js");
 
 const splitCookiesString = setCookie.splitCookiesString;
 
