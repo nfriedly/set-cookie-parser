@@ -1,5 +1,3 @@
-"use strict";
-
 var defaultParseOptions = {
   decodeValues: true,
   map: false,

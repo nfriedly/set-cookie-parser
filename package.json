@@ -22,8 +22,14 @@
     "parser"
   ],
   "devDependencies": {
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.1",
+    "@babel/preset-env": "^7.13.0",
+    "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-mocha": "^8.0.0",
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^4.2.3",
     "mocha": "^7.1.1",
@@ -32,7 +38,8 @@
     "sinon": "^9.0.1"
   },
   "scripts": {
-    "lint": "eslint . --ignore-pattern '!.eslintrc.js'",
+    "build": "babel src -d lib",
+    "lint": "eslint .",
     "test": "npm run lint && mocha",
     "autofix": "npm run lint -- --fix",
     "precommit": "npm test"

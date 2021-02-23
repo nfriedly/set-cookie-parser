@@ -1,10 +1,11 @@
-"use strict";
 module.exports = {
-  parserOptions: { ecmaVersion: 6 },
+  parser: "babel-eslint",
   env: {
-    node: true,
     browser: true,
+    mocha: true,
+    node: true,
   },
+  plugins: ["babel"],
   extends: ["eslint:recommended", "plugin:prettier/recommended"],
   rules: {
     "prefer-const": "error",
