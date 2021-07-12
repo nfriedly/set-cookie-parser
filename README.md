@@ -19,18 +19,18 @@ Also accepts an optional options object. Defaults:
 }
 ```
 
-Returns either array of cookie objects or map of cookie objects based on `map` option. Each object will have, at a minimum a name and value and may have any of the other parameters depending on the set-cookie header:
+Returns either an array of cookie objects or a map of name => cookie object with `{map: true}`. Each cookie object will have, at a minimum `name` and `value` properties, and may have additional properties depending on the set-cookie header:
 
-* name - cookie name (string)
-* value - cookie value (string)
-* path - cookie path (string or undefined)
-* domain - domain for the cookie (string or undefined, may begin with "." to indicate the named domain or any subdomain of it)
-* expires - absolute expiration date for the cookie (Date object or undefined)
-* maxAge - relative max age of the cookie in seconds from when the client receives it (integer or undefined)
+* `name` - cookie name (string)
+* `value` - cookie value (string)
+* `path` - cookie path (string or undefined)
+* `domain` - domain for the cookie (string or undefined, may begin with "." to indicate the named domain or any subdomain of it)
+* `expires` - absolute expiration date for the cookie (Date object or undefined)
+* `maxAge` - relative max age of the cookie in seconds from when the client receives it (integer or undefined)
   * Note: when using with [express's res.cookie() method](http://expressjs.com/en/4x/api.html#res.cookie), multiply `maxAge` by 1000 to convert to miliseconds.
-* secure - indicates that this cookie should only be sent over HTTPs (true or undefined)
-* httpOnly - indicates that this cookie should *not* be accessible to client-side JavaScript (true or undefined)
-* sameSite - indicates a cookie ought not to be sent along with cross-site requests (string or undefined)
+* `secure` - indicates that this cookie should only be sent over HTTPs (true or undefined)
+* `httpOnly` - indicates that this cookie should *not* be accessible to client-side JavaScript (true or undefined)
+* `sameSite` - indicates a cookie ought not to be sent along with cross-site requests (string or undefined)
 
 (The output format is loosely based on the input format of https://www.npmjs.com/package/cookie)
 
@@ -43,7 +43,8 @@ $ npm install --save set-cookie-parser
 
 ## Usage
 
-Get array of cookie objects
+### Get array of cookie objects
+
 ```js
 var http = require('http');
 var setCookie = require('set-cookie-parser');
@@ -56,25 +57,9 @@ http.get('http://example.com', function(res) {
   cookies.forEach(console.log);
 }
 ```
-Get map of cookie objects
-```js
-var http = require('http');
-var setCookie = require('set-cookie-parser');
-
-http.get('http://example.com', function(res) {
-  var cookies = setCookie.parse(res, {
-    decodeValues: true,  // default: true
-    map: true           //default: false
-  });
-
-  var desiredCookie = cookies['session'];
-  console.log(desiredCookie);
-});
-```
 
 Example output:
 
-Array of cookie objects
 ```js
 [
     {
@@ -95,7 +80,23 @@ Array of cookie objects
 ]
 ```
 
-Map of cookie objects
+### Get map of cookie objects
+
+```js
+var http = require('http');
+var setCookie = require('set-cookie-parser');
+
+http.get('http://example.com', function(res) {
+  var cookies = setCookie.parse(res, {
+    decodeValues: true,  // default: true
+    map: true            // default: false
+  });
+
+  var desiredCookie = cookies['session'];
+  console.log(desiredCookie);
+});
+```
+Example output:
 ```js
 {
     bam: {
@@ -138,7 +139,7 @@ function modifySetCookie(res){
 }
 ```
 
-See a real-world example of this in [unblocker](https://github.com/nfriedly/node-unblocker/blob/a894c0861af26489d2467c94fbc500770f57464f/lib/cookies.js#L62-L76)
+See a real-world example of this in [unblocker](https://github.com/nfriedly/node-unblocker/blob/08a89ec27274b46dcd80d0a324a59406f2bdad3d/lib/cookies.js#L67-L85)
 
 ## Usage in React Native
 
