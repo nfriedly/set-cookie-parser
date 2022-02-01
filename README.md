@@ -2,7 +2,6 @@
 
 [![NPM version][npm-image]][npm-url] 
 [![Build Status][travis-image]][travis-url] 
-[![Dependency Status][daviddm-image]][daviddm-url]
 [![npm downloads](https://img.shields.io/npm/dm/set-cookie-parser)][npm-url]
 
 Parses set-cookie headers into objects
@@ -197,5 +196,3 @@ MIT © [Nathan Friedly](http://www.nfriedly.com/)
 [npm-url]: https://npmjs.org/package/set-cookie-parser
 [travis-image]: https://travis-ci.org/nfriedly/set-cookie-parser.svg?branch=master
 [travis-url]: https://travis-ci.org/nfriedly/set-cookie-parser
-[daviddm-image]: https://david-dm.org/nfriedly/set-cookie-parser.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/nfriedly/set-cookie-parser
