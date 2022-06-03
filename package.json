@@ -13,6 +13,7 @@
     "lib"
   ],
   "main": "./lib/set-cookie.js",
+  "sideEffects": false,
   "keywords": [
     "set-cookie",
     "set",
