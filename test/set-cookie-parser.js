@@ -221,4 +221,15 @@ describe("set-cookie-parser", function () {
     expected = {};
     assert.deepEqual(actual, expected);
   });
+
+  it("should have empty name string, and value is the name-value-pair if the name-value-pair string lacks a = character", function () {
+    var actual = setCookie.parse("foo;");
+    var expected = [{ name: "", value: "foo" }];
+
+    assert.deepEqual(actual, expected);
+
+    actual = setCookie.parse("foo;SameSite=None;Secure");
+    expected = [{ name: "", value: "foo", sameSite: "None", secure: true }];
+    assert.deepEqual(actual, expected);
+  });
 });

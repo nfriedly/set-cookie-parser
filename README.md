@@ -186,6 +186,7 @@ Returns an array of strings that may be passed to `parse()`.
 ## References
 
 * [RFC 6265: HTTP State Management Mechanism](https://tools.ietf.org/html/rfc6265)
+* [draft-ietf-httpbis-rfc6265bis-10](https://httpwg.org/http-extensions/draft-ietf-httpbis-rfc6265bis.html)
 
 ## License
 
