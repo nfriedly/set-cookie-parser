@@ -1,7 +1,7 @@
 # set-cookie-parser 
 
+[![Node.js CI](https://github.com/nfriedly/set-cookie-parser/actions/workflows/node.js.yml/badge.svg)](https://github.com/nfriedly/set-cookie-parser/actions/workflows/node.js.yml)
 [![NPM version][npm-image]][npm-url] 
-[![Build Status][travis-image]][travis-url] 
 [![npm downloads](https://img.shields.io/npm/dm/set-cookie-parser)][npm-url]
 
 Parses set-cookie headers into objects
@@ -195,5 +195,3 @@ MIT © [Nathan Friedly](http://www.nfriedly.com/)
 
 [npm-image]: https://badge.fury.io/js/set-cookie-parser.svg
 [npm-url]: https://npmjs.org/package/set-cookie-parser
-[travis-image]: https://travis-ci.org/nfriedly/set-cookie-parser.svg?branch=master
-[travis-url]: https://travis-ci.org/nfriedly/set-cookie-parser
