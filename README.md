@@ -6,15 +6,15 @@
 
 Parses set-cookie headers into objects
 
-Accepts a single `set-cookie` header value, an array of `set-cookie` header values, or a Node.js response object that may have 0 or more `set-cookie` headers.
+Accepts a single `set-cookie` header value, an array of `set-cookie` header values, a Node.js response object, or a `fetch()` `Response` object that may have 0 or more `set-cookie` headers.
 
 Also accepts an optional options object. Defaults:
 
 ```js
 {
-    decodeValues: true,  // Calls dcodeURIComponent on each value - default: true
+    decodeValues: true,  // Calls decodeURIComponent on each value - default: true
     map: false,          // Return an object instead of an array - default: false
-    silent: false,       // Suppress the warning that is loged when called on a request instead of a response - default: false
+    silent: false,       // Suppress the warning that is logged when called on a request instead of a response - default: false
 }
 ```
 
@@ -26,7 +26,7 @@ Returns either an array of cookie objects or a map of name => cookie object with
 * `domain` - domain for the cookie (string or undefined, may begin with "." to indicate the named domain or any subdomain of it)
 * `expires` - absolute expiration date for the cookie (Date object or undefined)
 * `maxAge` - relative max age of the cookie in seconds from when the client receives it (integer or undefined)
-  * Note: when using with [express's res.cookie() method](http://expressjs.com/en/4x/api.html#res.cookie), multiply `maxAge` by 1000 to convert to miliseconds.
+  * Note: when using with [express's res.cookie() method](http://expressjs.com/en/4x/api.html#res.cookie), multiply `maxAge` by 1000 to convert to milliseconds.
 * `secure` - indicates that this cookie should only be sent over HTTPs (true or undefined)
 * `httpOnly` - indicates that this cookie should *not* be accessible to client-side JavaScript (true or undefined)
 * `sameSite` - indicates a cookie ought not to be sent along with cross-site requests (string or undefined)
@@ -140,9 +140,9 @@ function modifySetCookie(res){
 
 See a real-world example of this in [unblocker](https://github.com/nfriedly/node-unblocker/blob/08a89ec27274b46dcd80d0a324a59406f2bdad3d/lib/cookies.js#L67-L85)
 
-## Usage in React Native
+## Usage in React Native (and with some other fetch implementations)
 
-React Native follows the Fetch spec more closely and combines all of the Set-Cookie header values into a single string. 
+React Native follows the Fetch spec more closely and combines all of the Set-Cookie header values into a single string.
 The `splitCookiesString` method reverses this.
 
 ```js
@@ -159,6 +159,8 @@ console.log(cookies); // should be an array of cookies
 ```
 
 This behavior may become a default part of parse in the next major release, but requires the extra step for now.
+
+Note that the `fetch()` spec now includes a `getSetCookie()` method that provides un-combined `Set-Cookie` headers. This library will automatically use that method if it is present.
 
 ## API
 
