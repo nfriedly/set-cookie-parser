@@ -6,7 +6,6 @@
   "repository": "nfriedly/set-cookie-parser",
   "author": {
     "name": "Nathan Friedly",
-    "email": "",
     "url": "http://nfriedly.com/"
   },
   "files": [
@@ -20,6 +19,7 @@
     "cookie",
     "cookies",
     "header",
+    "parse",
     "parser"
   ],
   "devDependencies": {
@@ -38,5 +38,8 @@
     "autofix": "npm run lint -- --fix",
     "precommit": "npm test"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "prettier": {
+    "trailingComma": "es5"
+  }
 }
