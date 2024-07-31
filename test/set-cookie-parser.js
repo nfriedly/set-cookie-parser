@@ -28,7 +28,7 @@ describe("set-cookie-parser", function () {
 
   it("should parse a complex set-cookie header", function () {
     var cookieStr =
-      "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure";
+      "foo=bar; Max-Age=1000; Domain=.example.com; Path=/; Expires=Tue, 01 Jul 2025 10:01:11 GMT; HttpOnly; Secure; Partitioned";
     var actual = setCookie.parse(cookieStr);
     var expected = [
       {
@@ -40,6 +40,7 @@ describe("set-cookie-parser", function () {
         domain: ".example.com",
         secure: true,
         httpOnly: true,
+        partitioned: true,
       },
     ];
     assert.deepEqual(actual, expected);

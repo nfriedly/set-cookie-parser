@@ -30,6 +30,7 @@ Returns either an array of cookie objects or a map of name => cookie object with
 * `secure` - indicates that this cookie should only be sent over HTTPs (true or undefined)
 * `httpOnly` - indicates that this cookie should *not* be accessible to client-side JavaScript (true or undefined)
 * `sameSite` - indicates a cookie ought not to be sent along with cross-site requests (string or undefined)
+* `partitioned` - indicates that this cookie could be created in an iframe from a 3rd party domain (true or undefined)
 
 (The output format is loosely based on the input format of https://www.npmjs.com/package/cookie)
 
