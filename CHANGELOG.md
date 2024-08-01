@@ -2,6 +2,7 @@
 
 ## [2.7.0] - 2024-08-01
 * Added support for `partitioned` attribute
+* Set up automatic publishing to npm from github actions, with provenance
 
 Docs:
 * Added changelog
