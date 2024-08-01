@@ -22,15 +22,16 @@ Returns either an array of cookie objects or a map of name => cookie object with
 
 * `name` - cookie name (string)
 * `value` - cookie value (string)
-* `path` - cookie path (string or undefined)
-* `domain` - domain for the cookie (string or undefined, may begin with "." to indicate the named domain or any subdomain of it)
+* `path` - URL path to limit the scope to (string or undefined)
+* `domain` - domain to expand the scope to (string or undefined, may begin with "." to indicate the named domain or any subdomain of it)
 * `expires` - absolute expiration date for the cookie (Date object or undefined)
-* `maxAge` - relative max age of the cookie in seconds from when the client receives it (integer or undefined)
+* `maxAge` - relative expiration time of the cookie in seconds from when the client receives it (integer or undefined)
   * Note: when using with [express's res.cookie() method](http://expressjs.com/en/4x/api.html#res.cookie), multiply `maxAge` by 1000 to convert to milliseconds.
-* `secure` - indicates that this cookie should only be sent over HTTPs (true or undefined)
-* `httpOnly` - indicates that this cookie should *not* be accessible to client-side JavaScript (true or undefined)
-* `sameSite` - indicates a cookie ought not to be sent along with cross-site requests (string or undefined)
-* `partitioned` - indicates that this cookie could be created in an iframe from a 3rd party domain (true or undefined)
+* `secure` - indicates cookie should only be sent over HTTPs (true or undefined)
+* `httpOnly` - indicates cookie should *not* be accessible to client-side JavaScript (true or undefined)
+* `sameSite` - indicates if cookie should be included in cross-site requests ([more info](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#samesitesamesite-value)) (string or undefined)
+  * Note: valid values are `"Strict"`, `"Lax"`, and `"None"`, but set-cookie-parser coppies the value verbatim and does *not* perform any validation.
+* `partitioned` - indicates cookie should be scoped to the combination of 3rd party domain + top page domain ([more info](https://developer.mozilla.org/en-US/docs/Web/Privacy/Privacy_sandbox/Partitioned_cookies)) (true or undefined)
 
 (The output format is loosely based on the input format of https://www.npmjs.com/package/cookie)
 
@@ -180,11 +181,6 @@ Returns an object.
 It's uncommon, but the HTTP spec does allow for multiple of the same header to have their values combined (comma-separated) into a single header. 
 This method splits apart a combined header without choking on commas that appear within a cookie's value (or expiration date).
 Returns an array of strings that may be passed to `parse()`.
-
-## V2 Changes
-
-* Added decodeValues option (calls `decodeURIComponent()` on each cookie value), enabled by default.
-* Added `splitCookiesString` method.
 
 ## References
 
