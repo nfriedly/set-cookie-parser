@@ -4,7 +4,7 @@
 [![NPM version][npm-image]][npm-url] 
 [![npm downloads](https://img.shields.io/npm/dm/set-cookie-parser)][npm-url]
 
-Parses set-cookie headers into objects
+Parses set-cookie headers into JavaScript objects
 
 Accepts a single `set-cookie` header value, an array of `set-cookie` header values, a Node.js response object, or a `fetch()` `Response` object that may have 0 or more `set-cookie` headers.
 
