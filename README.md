@@ -4,6 +4,12 @@
 [![NPM version][npm-image]][npm-url] 
 [![npm downloads](https://img.shields.io/npm/dm/set-cookie-parser)][npm-url]
 
+---
+
+ℹ️ **Note for current users:** I'm considering some changes for the next major version and would appreciate your feedback: https://github.com/nfriedly/set-cookie-parser/discussions/68
+
+---
+
 Parses set-cookie headers into JavaScript objects
 
 Accepts a single `set-cookie` header value, an array of `set-cookie` header values, a Node.js response object, or a `fetch()` `Response` object that may have 0 or more `set-cookie` headers.
