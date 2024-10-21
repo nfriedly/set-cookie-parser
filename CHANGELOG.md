@@ -1,4 +1,6 @@
 
+## [v2.7.1](https://github.com/nfriedly/set-cookie-parser/tree/v2.7.0) - 2024-10-21
+* Docs: added link to [V3 discussion](https://github.com/nfriedly/set-cookie-parser/discussions/68) in readme
 
 ## [v2.7.0](https://github.com/nfriedly/set-cookie-parser/tree/v2.7.0) - 2024-08-01
 * Added support for `partitioned` attribute
