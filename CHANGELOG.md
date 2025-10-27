@@ -1,5 +1,12 @@
+# Change log
 
-## [v2.7.1](https://github.com/nfriedly/set-cookie-parser/tree/v2.7.0) - 2024-10-21
+## [v2.7.2](https://github.com/nfriedly/set-cookie-parser/tree/v2.7.2) - 2025-10-27
+
+Fixed:
+* Prevent Object prototype pollution by malicious cookies
+* Removed cookie values from error logs due to their potentially sensitive nature
+
+## [v2.7.1](https://github.com/nfriedly/set-cookie-parser/tree/v2.7.1) - 2024-10-21
 * Docs: added link to [V3 discussion](https://github.com/nfriedly/set-cookie-parser/discussions/68) in readme
 
 ## [v2.7.0](https://github.com/nfriedly/set-cookie-parser/tree/v2.7.0) - 2024-08-01
