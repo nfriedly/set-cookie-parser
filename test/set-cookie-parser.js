@@ -233,4 +233,18 @@ describe("set-cookie-parser", function () {
     expected = [{ name: "", value: "foo", sameSite: "None", secure: true }];
     assert.deepEqual(actual, expected);
   });
+
+  it("should skip cookies that could pollute the object prototype", function () {
+    var actual = setCookie.parse("__proto__=test;");
+    var expected = [];
+    assert.deepEqual(actual, expected);
+
+    actual = setCookie.parse("foo;__proto__=None;Secure");
+    expected = [{ name: "", value: "foo", secure: true }];
+    assert.deepEqual(actual, expected);
+
+    actual = setCookie.parse("__proto__=test;", { map: true });
+    expected = {};
+    assert.deepEqual(actual, expected);
+  });
 });
