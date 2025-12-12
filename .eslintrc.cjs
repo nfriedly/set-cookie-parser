@@ -1,8 +1,7 @@
 "use strict";
 module.exports = {
-  // This isn't really meant for use in browsers, but some dependents such as nookie are.
-  // So, stick with ES5 to be nice. See #44
-  parserOptions: { ecmaVersion: 5 },
+  // We tried to stick to ES5 compat for browsers (#44), but eslint can't handle that with modules
+  parserOptions: { ecmaVersion: 6, sourceType: 'module' },
   env: {
     node: true,
     browser: true,

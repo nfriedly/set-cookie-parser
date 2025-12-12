@@ -1,6 +1,5 @@
-"use strict";
-var sinon = require("sinon");
-var setCookie = require("../lib/set-cookie.js");
+import sinon from "sinon";
+import setCookie from "../lib/set-cookie.js";
 
 describe("set-cookie-parser", function () {
   var sandbox = sinon.createSandbox();

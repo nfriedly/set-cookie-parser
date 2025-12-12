@@ -1,8 +1,5 @@
-"use strict";
-var assert = require("assert");
-var setCookie = require("../lib/set-cookie.js");
-
-const splitCookiesString = setCookie.splitCookiesString;
+import assert from "node:assert";
+import { splitCookiesString } from "../lib/set-cookie.js";
 
 const array = ["a", "b"];
 
