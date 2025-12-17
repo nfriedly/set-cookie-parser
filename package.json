@@ -41,6 +41,7 @@
     "lint": "eslint . --ignore-pattern '!.eslintrc.js'",
     "test": "npm run lint && mocha",
     "autofix": "npm run lint -- --fix",
+    "format": "npm run lint -- --fix",
     "precommit": "npm test"
   },
   "license": "MIT",
