@@ -247,4 +247,54 @@ describe("set-cookie-parser", function () {
     expected = {};
     assert.deepEqual(actual, expected);
   });
+
+  describe("split option", function () {
+    const cookieA = "a=b";
+    const cookieB = `b=c`;
+    const cookieC = "c=d";
+    const combinedCookies = `${cookieA}, ${cookieB}`;
+
+    it("should split when true", function () {
+      var actual = setCookie.parse(combinedCookies, { split: true });
+      var expected = [
+        { name: "a", value: "b" },
+        { name: "b", value: "c" },
+      ];
+      assert.deepEqual(actual, expected);
+    });
+
+    it("should not split when false", function () {
+      var actual = setCookie.parse(combinedCookies, { split: false });
+      var expected = [{ name: "a", value: "b, b=c" }];
+      assert.deepEqual(actual, expected);
+    });
+
+    it("should split strings by default", function () {
+      var actual = setCookie.parse(combinedCookies);
+      var expected = [
+        { name: "a", value: "b" },
+        { name: "b", value: "c" },
+      ];
+      assert.deepEqual(actual, expected);
+    });
+
+    it("should not split arrays by default", function () {
+      var actual = setCookie.parse([combinedCookies, cookieC]);
+      var expected = [
+        { name: "a", value: "b, b=c" },
+        { name: "c", value: "d" },
+      ];
+      assert.deepEqual(actual, expected);
+    });
+
+    it("should split arrays when true", function () {
+      var actual = setCookie.parse([combinedCookies, cookieC], { split: true });
+      var expected = [
+        { name: "a", value: "b" },
+        { name: "b", value: "c" },
+        { name: "c", value: "d" },
+      ];
+      assert.deepEqual(actual, expected);
+    });
+  });
 });
