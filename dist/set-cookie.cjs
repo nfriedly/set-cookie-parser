@@ -92,7 +92,7 @@ function parseNameValuePair(nameValuePairStr) {
   return { name: name, value: value };
 }
 
-function parse(input, options) {
+function parseSetCookie(input, options) {
   options = options
     ? Object.assign({}, defaultParseOptions, options)
     : defaultParseOptions;
@@ -250,9 +250,11 @@ function splitCookiesString(cookiesString) {
   return cookiesStrings;
 }
 
+// named export for CJS
+parseSetCookie.parseSetCookie = parseSetCookie;
 // for backwards compatibility
-parse.parse = parse;
-parse.parseString = parseString;
-parse.splitCookiesString = splitCookiesString;
+parseSetCookie.parse = parseSetCookie;
+parseSetCookie.parseString = parseString;
+parseSetCookie.splitCookiesString = splitCookiesString;
 
-module.exports = parse;
+module.exports = parseSetCookie;

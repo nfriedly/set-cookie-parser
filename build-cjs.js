@@ -7,7 +7,7 @@ const inFile = "lib/set-cookie.js";
 const outFile = "dist/set-cookie.cjs";
 
 const header = `// Generated automatically from ${inFile}; see build-cjs.js\n\n`;
-const cjsExports = `module.exports = parse;\n`; // the other exports already added as properties on parse in the file
+const cjsExports = `module.exports = parseSetCookie;\n`; // the other exports already added as properties on parse in the file
 
 const input = readFileSync(inFile, { encoding: "utf8" });
 const output = header + input.split("// EXPORTS")[0] + cjsExports;
