@@ -1,7 +1,7 @@
 import sinon from "sinon";
 import setCookie from "../lib/set-cookie.js";
 
-describe("set-cookie-parser", function () {
+describe("warnings", function () {
   var sandbox = sinon.createSandbox();
 
   afterEach(function () {

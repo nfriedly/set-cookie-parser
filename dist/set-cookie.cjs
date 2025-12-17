@@ -1,3 +1,5 @@
+// Generated automatically from lib/set-cookie.js; see build-cjs.js
+
 var defaultParseOptions = {
   decodeValues: true,
   map: false,
@@ -253,7 +255,4 @@ parse.parse = parse;
 parse.parseString = parseString;
 parse.splitCookiesString = splitCookiesString;
 
-// EXPORTS
-// (this section is replaced by build-cjs.js)
-export default parse;
-export { parse, parseString, splitCookiesString };
+module.exports = parse;
