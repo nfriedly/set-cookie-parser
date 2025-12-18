@@ -4,7 +4,7 @@ var defaultParseOptions = {
   decodeValues: true,
   map: false,
   silent: false,
-  split: undefined, // undefined = split strings but not arrays
+  split: "auto", // auto = split strings but not arrays
 };
 
 function isForbiddenKey(key) {
@@ -134,7 +134,7 @@ function parseSetCookie(input, options) {
   var split = options.split;
   var isArray = Array.isArray(input);
 
-  if (typeof split === "undefined") {
+  if (split === "auto") {
     split = !isArray;
   }
 

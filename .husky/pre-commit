@@ -1,1 +1,1 @@
-npm test
+npm test && git add dist/ && echo 'precommit done'

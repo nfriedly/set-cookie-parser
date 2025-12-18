@@ -47,7 +47,6 @@
     "test": "npm run build && npm run lint && mocha",
     "autofix": "npm run lint -- --fix",
     "format": "npm run lint -- --fix",
-    "precommit": "npm test && git add dist/",
     "build": "node ./build-cjs.js",
     "prepare": "husky"
   },
