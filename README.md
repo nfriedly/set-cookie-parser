@@ -148,10 +148,10 @@ Also accepts an optional options object. Defaults:
 
 ```js
 {
-    decodeValues: true,  // Calls decodeURIComponent on each value - default: true
-    map: false,          // Return an object instead of an array - default: false
-    silent: false,       // Suppress the warning that is logged when called on a request instead of a response - default: false
-    split: undefined,    // Automatically separate combined cookie headers. Defaults to true for string inputs and false for array inputs.
+    decodeValues: true, // Calls decodeURIComponent on each value - default: true
+    map: false,         // Return an object instead of an array - default: false
+    silent: false,      // Suppress the warning that is logged when called on a request instead of a response - default: false
+    split: 'auto',      // Separate combined cookie headers. Valid options are true/false/'auto'. 'auto' splits strings but not arrays.
 }
 ```
 
