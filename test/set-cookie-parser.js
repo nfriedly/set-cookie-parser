@@ -249,7 +249,7 @@ describe("set-cookie-parser", function () {
 
   describe("split option", function () {
     const cookieA = "a=b";
-    const cookieB = `b=c`;
+    const cookieB = "b=c";
     const cookieC = "c=d";
     const combinedCookies = `${cookieA}, ${cookieB}`;
 
