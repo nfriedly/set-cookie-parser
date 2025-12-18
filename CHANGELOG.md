@@ -16,7 +16,7 @@ Added:
 * The new `split` option overrides this behavior, set to `true` to always split or `false` for the previous behavior of never plitting automatically.
 
 Removed / Soft-deprecated:
-* default export, `parseString()`, and `splitCookieString()` methods are no longer documented, but are still present for backwards compatibility.
+* default export, `parse()`, `parseString()`, and `splitCookieString()` methods are no longer documented, but are still present for backwards compatibility.
 
 ## [v2.7.2](https://github.com/nfriedly/set-cookie-parser/tree/v2.7.2) - 2025-10-27
 

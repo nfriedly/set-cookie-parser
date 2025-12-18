@@ -39,8 +39,9 @@ $ npm install --save set-cookie-parser
 ### Get array of cookie objects
 
 ```js
-import http from 'node:http';
+import * as http from 'node:http';
 import { parseSetCookie } from 'set-cookie-parser';
+// or const { parseSetCookie } = require('set-cookie-parser');
 
 http.get('http://example.com', function(res) {
   const cookies = parseSetCookie(res, {
@@ -76,8 +77,9 @@ Example output:
 ### Get map of cookie objects
 
 ```js
-import http from 'node:http';
+import * as http from 'node:http';
 import { parseSetCookie } from 'set-cookie-parser';
+// or const { parseSetCookie } = require('set-cookie-parser');
 
 http.get('http://example.com', function(res) {
   const cookies = parseSetCookie(res, {
@@ -115,8 +117,9 @@ Example output:
 This library can be used in conjunction with the [cookie](https://www.npmjs.com/package/cookie) library to modify and replace set-cookie headers:
 
 ```js
-import libCookie from 'cookie';
+import * as libCookie from 'cookie';
 import { parseSetCookie } from 'set-cookie-parser';
+// or const { parseSetCookie } = require('set-cookie-parser');
 
 function modifySetCookie(res){
   // parse the set-cookie headers with this library
