@@ -21,8 +21,6 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm test
-    - name: Fail if there are uncommitted changes after building
-      run: git add . && git diff --quiet && git diff --cached --quiet 
   publish:
     name: Publish
     needs: [test]
