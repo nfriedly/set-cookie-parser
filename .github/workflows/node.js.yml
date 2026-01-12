@@ -38,6 +38,8 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Install dependencies
         run: npm ci
+      - name: Build CJS version
+        run: npm run build
       - name: Publish package to NPM
         run: npm publish --provenance
         env:

@@ -1,6 +1,11 @@
 # Change log
 
-## [v3.0.0](https://github.com/nfriedly/set-cookie-parser/tree/v3.0.0) - 2025-12-17
+## [v3.0.0](https://github.com/nfriedly/set-cookie-parser/tree/v3.0.1) - 2026-01-12
+
+Fixed:
+* CJS version of library is now included in npm release
+
+## [v3.0.0](https://github.com/nfriedly/set-cookie-parser/tree/v3.0.0) - 2026-01-12
 
 ### Summary of v3 changes
 * Library now supports both ESM and CJS
