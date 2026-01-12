@@ -6,25 +6,11 @@
 
 ---
 
-ℹ️ **Note for current users:** I'm considering some changes for the next major version and would appreciate your feedback: https://github.com/nfriedly/set-cookie-parser/discussions/68
-
----
-
 Parses set-cookie headers into JavaScript objects
 
 Accepts a single `set-cookie` header value, an array of `set-cookie` header values, a Node.js response object, or a `fetch()` `Response` object that may have 0 or more `set-cookie` headers.
 
-Also accepts an optional options object. Defaults:
-
-```js
-{
-    decodeValues: true,  // Calls decodeURIComponent on each value - default: true
-    map: false,          // Return an object instead of an array - default: false
-    silent: false,       // Suppress the warning that is logged when called on a request instead of a response - default: false
-}
-```
-
-Returns either an array of cookie objects or a map of name => cookie object with `{map: true}`. Each cookie object will have, at a minimum `name` and `value` properties, and may have additional properties depending on the set-cookie header:
+Returns either an array of cookie objects or a map of name => cookie object with options set `{map: true}`. Each cookie object will have, at a minimum `name` and `value` properties, and may have additional properties depending on the set-cookie header:
 
 * `name` - cookie name (string)
 * `value` - cookie value (string)
@@ -36,7 +22,7 @@ Returns either an array of cookie objects or a map of name => cookie object with
 * `secure` - indicates cookie should only be sent over HTTPs (true or undefined)
 * `httpOnly` - indicates cookie should *not* be accessible to client-side JavaScript (true or undefined)
 * `sameSite` - indicates if cookie should be included in cross-site requests ([more info](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#samesitesamesite-value)) (string or undefined)
-  * Note: valid values are `"Strict"`, `"Lax"`, and `"None"`, but set-cookie-parser coppies the value verbatim and does *not* perform any validation.
+  * Note: valid values are `"Strict"`, `"Lax"`, and `"None"`, but set-cookie-parser copies the value verbatim and does *not* perform any validation.
 * `partitioned` - indicates cookie should be scoped to the combination of 3rd party domain + top page domain ([more info](https://developer.mozilla.org/en-US/docs/Web/Privacy/Privacy_sandbox/Partitioned_cookies)) (true or undefined)
 
 (The output format is loosely based on the input format of https://www.npmjs.com/package/cookie)
@@ -53,11 +39,12 @@ $ npm install --save set-cookie-parser
 ### Get array of cookie objects
 
 ```js
-var http = require('http');
-var setCookie = require('set-cookie-parser');
+import * as http from 'node:http';
+import { parseSetCookie } from 'set-cookie-parser';
+// or const { parseSetCookie } = require('set-cookie-parser');
 
 http.get('http://example.com', function(res) {
-  var cookies = setCookie.parse(res, {
+  const cookies = parseSetCookie(res, {
     decodeValues: true  // default: true
   });
 
@@ -90,16 +77,17 @@ Example output:
 ### Get map of cookie objects
 
 ```js
-var http = require('http');
-var setCookie = require('set-cookie-parser');
+import * as http from 'node:http';
+import { parseSetCookie } from 'set-cookie-parser';
+// or const { parseSetCookie } = require('set-cookie-parser');
 
 http.get('http://example.com', function(res) {
-  var cookies = setCookie.parse(res, {
+  const cookies = parseSetCookie(res, {
     decodeValues: true,  // default: true
     map: true            // default: false
   });
 
-  var desiredCookie = cookies['session'];
+  const desiredCookie = cookies['session'];
   console.log(desiredCookie);
 });
 ```
@@ -129,12 +117,13 @@ Example output:
 This library can be used in conjunction with the [cookie](https://www.npmjs.com/package/cookie) library to modify and replace set-cookie headers:
 
 ```js
-const libCookie = require('cookie');
-const setCookie = require('set-cookie-parser');
+import * as libCookie from 'cookie';
+import { parseSetCookie } from 'set-cookie-parser';
+// or const { parseSetCookie } = require('set-cookie-parser');
 
 function modifySetCookie(res){
   // parse the set-cookie headers with this library
-  let cookies = setCookie.parse(res);
+  const cookies = parseSetCookie(res);
   
   // modify the cookies here
   // ...
@@ -148,45 +137,23 @@ function modifySetCookie(res){
 
 See a real-world example of this in [unblocker](https://github.com/nfriedly/node-unblocker/blob/08a89ec27274b46dcd80d0a324a59406f2bdad3d/lib/cookies.js#L67-L85)
 
-## Usage in React Native (and with some other fetch implementations)
-
-React Native follows the Fetch spec more closely and combines all of the Set-Cookie header values into a single string.
-The `splitCookiesString` method reverses this.
-
-```js
-var setCookie = require('set-cookie-parser');
-
-var response = fetch(/*...*/);
-
-// This is mainly for React Native; Node.js does not combine set-cookie headers.
-var combinedCookieHeader = response.headers.get('Set-Cookie');
-var splitCookieHeaders = setCookie.splitCookiesString(combinedCookieHeader)
-var cookies = setCookie.parse(splitCookieHeaders);
-
-console.log(cookies); // should be an array of cookies
-```
-
-This behavior may become a default part of parse in the next major release, but requires the extra step for now.
-
-Note that the `fetch()` spec now includes a `getSetCookie()` method that provides un-combined `Set-Cookie` headers. This library will automatically use that method if it is present.
-
 ## API
 
-### parse(input, [options])
+### parseSetCookie(input, [options])
 
 Parses cookies from a string, array of strings, or a http response object. 
 Always returns an array, regardless of input format. (Unless the `map` option is set, in which case it always returns an object.)
 
-### parseString(individualSetCookieHeader, [options])
+Also accepts an optional options object. Defaults:
 
-Parses a single set-cookie header value string. Options default is `{decodeValues: true}`. Used under-the-hood by `parse()`. 
-Returns an object.
-
-### splitCookiesString(combinedSetCookieHeader)
-
-It's uncommon, but the HTTP spec does allow for multiple of the same header to have their values combined (comma-separated) into a single header. 
-This method splits apart a combined header without choking on commas that appear within a cookie's value (or expiration date).
-Returns an array of strings that may be passed to `parse()`.
+```js
+{
+    decodeValues: true, // Calls decodeURIComponent on each value - default: true
+    map: false,         // Return an object instead of an array - default: false
+    silent: false,      // Suppress the warning that is logged when called on a request instead of a response - default: false
+    split: 'auto',      // Separate combined cookie headers. Valid options are true/false/'auto'. 'auto' splits strings but not arrays.
+}
+```
 
 ## References
 

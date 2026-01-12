@@ -1,6 +1,5 @@
-"use strict";
-var assert = require("assert");
-var setCookie = require("../lib/set-cookie.js");
+import assert from "node:assert";
+import setCookie from "../lib/set-cookie.js";
 
 describe("fetch", () => {
   before(() => {

@@ -9,9 +9,19 @@
     "url": "http://nfriedly.com/"
   },
   "files": [
-    "lib"
+    "lib",
+    "dist"
   ],
-  "main": "./lib/set-cookie.js",
+  "main": "./dist/set-cookie.cjs",
+  "module": "./lib/set-cookie.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "module-sync": "./lib/set-cookie.js",
+      "import": "./lib/set-cookie.js",
+      "require": "./dist/set-cookie.cjs"
+    }
+  },
   "sideEffects": false,
   "keywords": [
     "set-cookie",
@@ -26,7 +36,7 @@
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
-    "husky": "^9.0.11",
+    "husky": "^9.1.7",
     "mocha": "^10.3.0",
     "prettier": "^3.2.5",
     "pretty-quick": "^4.0.0",
@@ -34,9 +44,11 @@
   },
   "scripts": {
     "lint": "eslint . --ignore-pattern '!.eslintrc.js'",
-    "test": "npm run lint && mocha",
+    "test": "npm run build && npm run lint && mocha",
     "autofix": "npm run lint -- --fix",
-    "precommit": "npm test"
+    "format": "npm run lint -- --fix",
+    "build": "node ./build-cjs.js",
+    "prepare": "husky"
   },
   "license": "MIT",
   "prettier": {

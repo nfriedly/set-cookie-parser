@@ -1,5 +1,23 @@
 # Change log
 
+## [v3.0.0](https://github.com/nfriedly/set-cookie-parser/tree/v3.0.0) - 2025-12-17
+
+### Summary of v3 changes
+* Library now supports both ESM and CJS
+* Combined cookie headers are now split automatically
+* API has been simplified to a single named export: `parseSetCookie` (with other exports for backwards compatibility)
+
+Changed:
+* Library is now written as an ES module, with CJS automatically built for backwards-compatibility
+* `parse` function renamed to `parseSetCookie` (with alias for backwards compatibility)
+
+Added:
+* Library now splits combined cookies automatically based on input type.
+* The new `split` option overrides this behavior, set to `true` to always split or `false` for the previous behavior of never plitting automatically.
+
+Removed / Soft-deprecated:
+* default export, `parse()`, `parseString()`, and `splitCookieString()` methods are no longer documented, but are still present for backwards compatibility.
+
 ## [v2.7.2](https://github.com/nfriedly/set-cookie-parser/tree/v2.7.2) - 2025-10-27
 
 Fixed:
