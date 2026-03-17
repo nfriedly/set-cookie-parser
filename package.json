@@ -14,9 +14,11 @@
   ],
   "main": "./dist/set-cookie.cjs",
   "module": "./lib/set-cookie.js",
+  "types": "./lib/set-cookie.d.ts",
   "type": "module",
   "exports": {
     ".": {
+      "types": "./lib/set-cookie.d.ts",
       "module-sync": "./lib/set-cookie.js",
       "import": "./lib/set-cookie.js",
       "require": "./dist/set-cookie.cjs"
