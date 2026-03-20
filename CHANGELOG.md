@@ -1,6 +1,12 @@
 # Change log
 
-## [v3.0.0](https://github.com/nfriedly/set-cookie-parser/tree/v3.0.1) - 2026-01-12
+
+## [v3.1.0](https://github.com/nfriedly/set-cookie-parser/tree/v3.1.0) - 2026-01-12
+
+Added:
+* Included TypeScript definitions in the library
+
+## [v3.0.1](https://github.com/nfriedly/set-cookie-parser/tree/v3.0.1) - 2026-01-12
 
 Fixed:
 * CJS version of library is now included in npm release
