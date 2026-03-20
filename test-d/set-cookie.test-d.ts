@@ -7,7 +7,7 @@ import setCookieParser, {
   Cookie,
   CookieMap,
   Options,
-} from "./set-cookie.js";
+} from "../lib/set-cookie.js";
 
 // --- parseSetCookie: return type overloads ---
 
