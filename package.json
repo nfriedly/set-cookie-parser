@@ -14,9 +14,11 @@
   ],
   "main": "./dist/set-cookie.cjs",
   "module": "./lib/set-cookie.js",
+  "types": "./lib/set-cookie.d.ts",
   "type": "module",
   "exports": {
     ".": {
+      "types": "./lib/set-cookie.d.ts",
       "module-sync": "./lib/set-cookie.js",
       "import": "./lib/set-cookie.js",
       "require": "./dist/set-cookie.cjs"
@@ -40,11 +42,13 @@
     "mocha": "^10.3.0",
     "prettier": "^3.2.5",
     "pretty-quick": "^4.0.0",
-    "sinon": "^17.0.1"
+    "sinon": "^17.0.1",
+    "tsd": "^0.33.0"
   },
   "scripts": {
     "lint": "eslint . --ignore-pattern '!.eslintrc.js'",
-    "test": "npm run build && npm run lint && mocha",
+    "test": "npm run build && npm run lint && mocha && npm run typecheck",
+    "typecheck": "tsd",
     "autofix": "npm run lint -- --fix",
     "format": "npm run lint -- --fix",
     "build": "node ./build-cjs.js",
