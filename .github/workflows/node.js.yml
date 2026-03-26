@@ -13,9 +13,9 @@ jobs:
         node-version: [lts/*, latest]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
-    - uses: actions/checkout
+    - uses: actions/checkout@v6
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node
+      uses: actions/setup-node@v6
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
@@ -31,8 +31,8 @@ jobs:
       id-token: write
     steps:
       - name: Checkout the repository
-        uses: actions/checkout
-      - uses: actions/setup-node
+        uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: lts/*
           registry-url: https://registry.npmjs.org/
