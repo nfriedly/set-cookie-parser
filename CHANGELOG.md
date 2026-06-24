@@ -1,5 +1,10 @@
 # Change log
 
+## [v3.1.1](https://github.com/nfriedly/set-cookie-parser/tree/v3.1.1) - 2026-06-23
+
+Fixed:
+* Whitespace is now correctly trimmed around attribute names and values
+
 
 ## [v3.1.0](https://github.com/nfriedly/set-cookie-parser/tree/v3.1.0) - 2026-01-12
 
