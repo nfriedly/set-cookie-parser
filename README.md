@@ -10,7 +10,7 @@ Parses set-cookie headers into JavaScript objects
 
 Accepts a single `set-cookie` header value, an array of `set-cookie` header values, a Node.js response object, or a `fetch()` `Response` object that may have 0 or more `set-cookie` headers.
 
-Returns either an array of cookie objects or a map of name => cookie object with options set `{map: true}`. Each cookie object will have, at a minimum `name` and `value` properties, and may have additional properties depending on the set-cookie header:
+Returns either an array of cookie objects or a map of name => cookie object with options set to `{map: true}`. Each cookie object will have `name` and `value` properties, and may have additional properties depending on the set-cookie header:
 
 * `name` - cookie name (string)
 * `value` - cookie value (string)
