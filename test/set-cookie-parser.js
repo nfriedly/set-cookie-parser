@@ -247,6 +247,36 @@ describe("set-cookie-parser", function () {
     assert.deepEqual(actual, expected);
   });
 
+  it("should trim whitespace around attribute names and values (rfc 6265 5.2 step 3)", function () {
+    var actual = parseSetCookie(
+      "foo=bar; Domain= .example.com; Path= /admin; SameSite= Lax"
+    );
+    var expected = [
+      {
+        name: "foo",
+        value: "bar",
+        domain: ".example.com",
+        path: "/admin",
+        sameSite: "Lax",
+      },
+    ];
+    assert.deepEqual(actual, expected);
+
+    actual = parseSetCookie("foo=bar; Domain=.example.com ; Path=/ ");
+    expected = [
+      { name: "foo", value: "bar", domain: ".example.com", path: "/" },
+    ];
+    assert.deepEqual(actual, expected);
+
+    actual = parseSetCookie("foo=bar; Secure ");
+    expected = [{ name: "foo", value: "bar", secure: true }];
+    assert.deepEqual(actual, expected);
+
+    actual = parseSetCookie("foo=bar; Path =/x");
+    expected = [{ name: "foo", value: "bar", path: "/x" }];
+    assert.deepEqual(actual, expected);
+  });
+
   describe("split option", function () {
     const cookieA = "a=b";
     const cookieB = "b=c";
