@@ -233,6 +233,15 @@ describe("set-cookie-parser", function () {
     assert.deepEqual(actual, expected);
   });
 
+  it("should ignore a set-cookie string with no name-value-pair instead of throwing", function () {
+    assert.deepEqual(parseSetCookie(";"), []);
+    assert.deepEqual(parseSetCookie("   ;   "), []);
+    assert.deepEqual(parseSetCookie([";", "foo=bar"]), [
+      { name: "foo", value: "bar" },
+    ]);
+    assert.deepEqual(parseSetCookie(";", { map: true }), {});
+  });
+
   it("should skip cookies that could pollute the object prototype", function () {
     var actual = parseSetCookie("__proto__=test;");
     var expected = [];
