@@ -1,5 +1,11 @@
 # Change log
 
+## [v3.1.2](https://github.com/nfriedly/set-cookie-parser/tree/v3.1.1) - 2026-07-09
+
+Fixed:
+* No longer throws when attempting to parse a set-cookie string with no name-value pair, e.g parseSetCookie(";")
+
+
 ## [v3.1.1](https://github.com/nfriedly/set-cookie-parser/tree/v3.1.1) - 2026-06-23
 
 Fixed:
