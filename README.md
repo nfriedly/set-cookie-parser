@@ -152,8 +152,27 @@ Also accepts an optional options object. Defaults:
     map: false,         // Return an object instead of an array - default: false
     silent: false,      // Suppress the warning that is logged when called on a request instead of a response - default: false
     split: 'auto',      // Separate combined cookie headers. Valid options are true/false/'auto'. 'auto' splits strings but not arrays.
+    parseDate: defaultDateParser, // Parses the Expires attribute. Takes a string, returns a Date or undefined.
 }
 ```
+
+### `parseDate`
+
+Some JavaScript engines - notably Hermes, which backs React Native - cannot
+reliably parse the date formats RFC 6265 § 5.1.1 allows senders to use. Hermes
+returns an Invalid Date for the `asctime()` format, and reads two-digit years as
+19xx rather than the 19xx/20xx split the RFC requires ([#35]).
+
+By default this library parses those formats itself and only falls back to the
+built-in `Date`, so cookies parse consistently across engines. To take over
+entirely, pass your own function:
+
+```js
+parseSetCookie(input, { parseDate: (dateStr) => new Date(dateStr) })
+```
+
+Returning `undefined` leaves `expires` undefined rather than setting an Invalid
+Date.
 
 ## References
 

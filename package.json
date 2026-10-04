@@ -52,6 +52,8 @@
     "autofix": "npm run lint -- --fix",
     "format": "npm run lint -- --fix",
     "build": "node ./build-cjs.js",
+    "test:cross-engine:build": "node test/cross-engine/build.js",
+    "test:cross-engine": "npm run test:cross-engine:build && node test/cross-engine/run.js",
     "prepare": "husky"
   },
   "license": "MIT",

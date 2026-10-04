@@ -13,4 +13,17 @@ module.exports = {
     strict: "error",
     eqeqeq: "error",
   },
+  overrides: [
+    {
+      // Inlined into the bundle and executed by engines that predate ES2015.
+      files: ["test/cross-engine/assertions.js"],
+      parserOptions: { ecmaVersion: 5, sourceType: "script" },
+      env: { browser: true, node: true },
+      rules: {
+        "no-var": "off",
+        "prefer-const": "off",
+        strict: "off",
+      },
+    },
+  ],
 };

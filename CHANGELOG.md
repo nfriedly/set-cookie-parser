@@ -1,5 +1,15 @@
 # Change log
 
+## Unreleased
+
+Added:
+* `parseDate` option for customizing how the `Expires` attribute is parsed
+* Cross-engine test suite (`npm run test:cross-engine`) covering node, Hermes, and JavaScriptCore
+
+Fixed:
+* `Expires` is now parsed consistently across JavaScript engines. Hermes cannot parse the asctime() date format and reads two-digit years as 19xx, which made cookies parsed on React Native disagree with other environments. See [#35](https://github.com/nfriedly/set-cookie-parser/issues/35)
+
+
 ## [v3.1.2](https://github.com/nfriedly/set-cookie-parser/tree/v3.1.1) - 2026-07-09
 
 Fixed:

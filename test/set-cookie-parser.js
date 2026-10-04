@@ -45,17 +45,66 @@ describe("set-cookie-parser", function () {
     assert.deepEqual(actual, expected);
   });
 
-  it("should parse expires with different formats including those problematic in some JS engines", function () {
-    var cookieStr = "foo=bar; Expires=Thu, 26-Mar-2020 07:55:35 GMT";
-    var actual = parseSetCookie(cookieStr);
-    var expected = [
+  it("should parse expires using the RFC 6265 date formats", function () {
+    // RFC 6265 section 5.1.1 lists three formats senders may use. Node's
+    // built-in Date handles all three, but Hermes cannot parse asctime() at all
+    // and reads two-digit years as 19xx - see #35 and the cross-engine tests in
+    // test/cross-engine.
+    var formats = [
+      "Tue, 21 Oct 2025 07:28:00 GMT", // RFC 1123
+      "Tuesday, 21-Oct-25 07:28:00 GMT", // RFC 850
+      "Tue Oct 21 07:28:00 2025", // asctime()
+      "Thu, 26-Mar-2020 07:55:35 GMT", // the string from #35
+    ];
+    formats.forEach(function (format) {
+      var actual = parseSetCookie("foo=bar; Expires=" + format);
+      var expected = [
+        {
+          name: "foo",
+          value: "bar",
+          expires: new Date(Date.UTC(2025, 9, 21, 7, 28, 0)),
+        },
+      ];
+      if (format.indexOf("2020") !== -1) {
+        expected[0].expires = new Date(Date.UTC(2020, 2, 26, 7, 55, 35));
+      }
+      assert.deepEqual(actual, expected, "failed to parse " + format);
+    });
+  });
+
+  it("should resolve two-digit years per RFC 6265 section 5.1.1", function () {
+    // Years 70-99 mean 19xx, everything else means 20xx.
+    var cases = [
+      ["Thursday, 26-Mar-20 07:55:35 GMT", Date.UTC(2020, 2, 26, 7, 55, 35)],
+      ["Monday, 26-Mar-95 07:55:35 GMT", Date.UTC(1995, 2, 26, 7, 55, 35)],
+      ["Monday, 26-Mar-70 07:55:35 GMT", Date.UTC(1970, 2, 26, 7, 55, 35)],
+      ["Monday, 26-Mar-69 07:55:35 GMT", Date.UTC(2069, 2, 26, 7, 55, 35)],
+    ];
+    cases.forEach(function (testCase) {
+      var actual = parseSetCookie("foo=bar; Expires=" + testCase[0]);
+      assert.equal(actual[0].expires.getTime(), testCase[1], testCase[0]);
+    });
+  });
+
+  it("should use a custom parseDate function when provided", function () {
+    var calls = [];
+    var actual = parseSetCookie(
+      "foo=bar; Expires=Thu, 26-Mar-2020 07:55:35 GMT",
+      {
+        parseDate: function (dateStr) {
+          calls.push(dateStr);
+          return new Date(Date.UTC(1999, 0, 1));
+        },
+      }
+    );
+    assert.deepEqual(calls, ["Thu, 26-Mar-2020 07:55:35 GMT"]);
+    assert.deepEqual(actual, [
       {
         name: "foo",
         value: "bar",
-        expires: new Date("Thu, 26-Mar-2020 07:55:35 GMT"),
+        expires: new Date(Date.UTC(1999, 0, 1)),
       },
-    ];
-    assert.deepEqual(actual, expected);
+    ]);
   });
 
   it("should parse a weird but valid cookie", function () {

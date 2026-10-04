@@ -50,6 +50,14 @@ parseSetCookie("foo=bar", { decodeValues: false });
 // silent option
 parseSetCookie("foo=bar", { silent: true });
 
+// parseDate option accepts a function returning Date | undefined
+parseSetCookie("foo=bar", {
+  parseDate: (dateStr) => new Date(dateStr),
+});
+parseSetCookie("foo=bar", { parseDate: () => undefined });
+expectError(parseSetCookie("foo=bar", { parseDate: "not a function" }));
+expectError(parseSetCookie("foo=bar", { parseDate: () => "not a date" }));
+
 // --- Cookie properties ---
 
 const cookies = parseSetCookie("foo=bar");

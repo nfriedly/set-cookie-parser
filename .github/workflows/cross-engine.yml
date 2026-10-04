@@ -1,39 +1,32 @@
 name: Cross-Engine JS Tests
 
+# Issue #35: `new Date(string)` handles the HTTP-date formats that RFC 6265
+# requires senders to produce inconsistently across JS engines - Hermes, for
+# example, cannot parse the asctime() format and reads two-digit years as 19xx.
+# These tests run the same assertions under node (V8), Hermes, and JavaScriptCore
+# so the library's own date parser gets exercised on all three.
+
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
 
 jobs:
-  test-engines:
+  cross-engine:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
+          cache: npm
 
-      - name: Install JSVU (JavaScript Version Updater)
-        run: npm install -g jsvu
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Install Hermes and JSC via JSVU
-        run: jsvu --os=linux64 --engines=hermes,javascriptcore
+      - name: Install Hermes and JavaScriptCore via JSVU
+        run: npx jsvu --os=linux64 --engines=hermes,javascriptcore
 
-      - name: Add JSVU to PATH
-        run: echo "$HOME/.jsvu/bin" >> $GITHUB_PATH
-
-      - name: Build
-        run: npm ci && npm run build
-
-      - name: Run Tests in Node (V8)
-        run: node test-cross-engine.cjs
-
-      - name: Run Tests in Hermes
-        run: hermes test-cross-engine.cjs
-
-      - name: Run Tests in JavaScriptCore (JSC)
-        run: javascriptcore test-cross-engine.cjs
+      - name: Run cross-engine tests
+        run: npm run test:cross-engine
