@@ -6,10 +6,7 @@ name: Cross-Engine JS Tests
 # These tests run the same assertions under node (V8), Hermes, and JavaScriptCore
 # so the library's own date parser gets exercised on all three.
 
-on:
-  push:
-    branches: [master]
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   cross-engine:
