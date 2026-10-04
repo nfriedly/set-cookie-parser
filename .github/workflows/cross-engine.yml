@@ -1,0 +1,39 @@
+name: Cross-Engine JS Tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test-engines:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install JSVU (JavaScript Version Updater)
+        run: npm install -g jsvu
+
+      - name: Install Hermes and JSC via JSVU
+        run: jsvu --os=linux64 --engines=hermes,javascriptcore
+
+      - name: Add JSVU to PATH
+        run: echo "$HOME/.jsvu/bin" >> $GITHUB_PATH
+
+      - name: Build
+        run: npm ci && npm run build
+
+      - name: Run Tests in Node (V8)
+        run: node test-cross-engine.cjs
+
+      - name: Run Tests in Hermes
+        run: hermes test-cross-engine.cjs
+
+      - name: Run Tests in JavaScriptCore (JSC)
+        run: javascriptcore test-cross-engine.cjs

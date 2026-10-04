@@ -45,6 +45,19 @@ describe("set-cookie-parser", function () {
     assert.deepEqual(actual, expected);
   });
 
+  it("should parse expires with different formats including those problematic in some JS engines", function () {
+    var cookieStr = "foo=bar; Expires=Thu, 26-Mar-2020 07:55:35 GMT";
+    var actual = parseSetCookie(cookieStr);
+    var expected = [
+      {
+        name: "foo",
+        value: "bar",
+        expires: new Date("Thu, 26-Mar-2020 07:55:35 GMT"),
+      },
+    ];
+    assert.deepEqual(actual, expected);
+  });
+
   it("should parse a weird but valid cookie", function () {
     var cookieStr =
       "foo=bar=bar&foo=foo&John=Doe&Doe=John; Max-Age=1000; Domain=.example.com; Path=/; HttpOnly; Secure";

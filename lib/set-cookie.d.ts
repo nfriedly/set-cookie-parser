@@ -55,6 +55,11 @@ export interface Options {
    * @default "auto"
    */
   split?: boolean | "auto";
+  /**
+   * Custom date parser for the Expires attribute. Returns a Date or undefined.
+   * @default parse using built-in Date and a fallback HTTP-date parser
+   */
+  parseDate?: (dateStr: string) => Date | undefined;
 }
 
 /** Object with a `headers` property (e.g. Node.js IncomingMessage or fetch Response) */
