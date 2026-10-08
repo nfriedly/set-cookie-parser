@@ -99,7 +99,7 @@ assertEqual(
   Date.UTC(1995, 2, 26, 7, 55, 35)
 );
 
-// Unparseable values still yield an Invalid Date rather than throwing.
+// Unparsable values still yield an Invalid Date rather than throwing.
 var invalid = parseExpires("not a date at all");
 assertEqual(
   "'not a date at all' should not throw",
