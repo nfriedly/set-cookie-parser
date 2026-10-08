@@ -1,5 +1,9 @@
 import assert from "node:assert";
-import { parseSetCookie } from "../lib/set-cookie.js";
+import {
+  parseSetCookie,
+  parseString,
+  splitCookiesString,
+} from "../lib/set-cookie.js";
 
 describe("set-cookie-parser", function () {
   it("should parse a simple set-cookie header", function () {
@@ -284,6 +288,123 @@ describe("set-cookie-parser", function () {
     actual = parseSetCookie("foo=bar; Path =/x");
     expected = [{ name: "foo", value: "bar", path: "/x" }];
     assert.deepEqual(actual, expected);
+  });
+
+  describe("name-value-pair whitespace (rfc 6265 5.2)", function () {
+    it("should trim leading whitespace from the name", function () {
+      assert.deepEqual(parseSetCookie(" session=abc; Path=/"), [
+        { name: "session", value: "abc", path: "/" },
+      ]);
+    });
+
+    it("should trim trailing whitespace from the value", function () {
+      assert.deepEqual(parseSetCookie("session=abc ; Path=/"), [
+        { name: "session", value: "abc", path: "/" },
+      ]);
+      assert.deepEqual(parseSetCookie("a=b ;Path=/"), [
+        { name: "a", value: "b", path: "/" },
+      ]);
+    });
+
+    it("should trim whitespace around the = sign", function () {
+      assert.deepEqual(parseSetCookie("session = abc; Path=/"), [
+        { name: "session", value: "abc", path: "/" },
+      ]);
+    });
+
+    it("should trim tabs but not other unicode whitespace", function () {
+      assert.deepEqual(parseSetCookie("\ta\t=\tb\t; Path=/"), [
+        { name: "a", value: "b", path: "/" },
+      ]);
+      // only WSP (SP / HTAB) is trimmed, per the rfc
+      assert.deepEqual(
+        parseSetCookie("a=\u00a0b\u00a0", { decodeValues: false }),
+        [{ name: "a", value: "\u00a0b\u00a0" }]
+      );
+    });
+
+    it("should trim before decoding", function () {
+      assert.deepEqual(parseSetCookie("a= b%20c "), [
+        { name: "a", value: "b c" },
+      ]);
+      // an encoded space is data, not whitespace, so it is kept
+      assert.deepEqual(parseSetCookie("a=%20b%20 "), [
+        { name: "a", value: " b " },
+      ]);
+      assert.deepEqual(parseSetCookie("a= b%20c ", { decodeValues: false }), [
+        { name: "a", value: "b%20c" },
+      ]);
+    });
+
+    it("should trim in parseString", function () {
+      assert.deepEqual(parseString("  a  =  b  ; Secure"), {
+        name: "a",
+        value: "b",
+        secure: true,
+      });
+    });
+
+    it("should trim when splitting combined headers", function () {
+      var combined =
+        "a=1 ; Path=/; Expires=Wed, 21 Oct 2026 07:28:00 GMT, b=2 ; Secure";
+      assert.deepEqual(splitCookiesString(combined), [
+        "a=1 ; Path=/; Expires=Wed, 21 Oct 2026 07:28:00 GMT",
+        "b=2 ; Secure",
+      ]);
+      assert.deepEqual(parseSetCookie(combined), [
+        {
+          name: "a",
+          value: "1",
+          path: "/",
+          expires: new Date("Wed, 21 Oct 2026 07:28:00 GMT"),
+        },
+        { name: "b", value: "2", secure: true },
+      ]);
+    });
+
+    it("should trim when building a map", function () {
+      assert.deepEqual(parseSetCookie(" a = b ", { map: true }), {
+        a: { name: "a", value: "b" },
+      });
+    });
+
+    it("should preserve whitespace inside the name and value", function () {
+      assert.deepEqual(parseSetCookie("a=b c"), [{ name: "a", value: "b c" }]);
+      assert.deepEqual(parseSetCookie(" a=  b   c  "), [
+        { name: "a", value: "b   c" },
+      ]);
+      assert.deepEqual(parseSetCookie("a b=c"), [{ name: "a b", value: "c" }]);
+    });
+
+    it("should keep everything after the first = in the value", function () {
+      assert.deepEqual(parseSetCookie("a=b=c"), [{ name: "a", value: "b=c" }]);
+      assert.deepEqual(parseSetCookie("a = b = c "), [
+        { name: "a", value: "b = c" },
+      ]);
+    });
+
+    it("should not strip quotes, only whitespace", function () {
+      assert.deepEqual(parseSetCookie('a="b" '), [{ name: "a", value: '"b"' }]);
+      assert.deepEqual(parseSetCookie('a=" b "'), [
+        { name: "a", value: '" b "' },
+      ]);
+    });
+
+    it("should still follow 6265bis for nameless cookies", function () {
+      assert.deepEqual(parseSetCookie("abc ; Path=/"), [
+        { name: "", value: "abc", path: "/" },
+      ]);
+      assert.deepEqual(parseSetCookie("  abc"), [{ name: "", value: "abc" }]);
+      assert.deepEqual(parseSetCookie("  =abc"), [{ name: "", value: "abc" }]);
+      assert.deepEqual(parseSetCookie("=abc"), [{ name: "", value: "abc" }]);
+      assert.deepEqual(parseSetCookie("foo;"), [{ name: "", value: "foo" }]);
+    });
+
+    it("should handle an all-whitespace value", function () {
+      assert.deepEqual(parseSetCookie("a=   ; Path=/"), [
+        { name: "a", value: "", path: "/" },
+      ]);
+    });
   });
 
   describe("split option", function () {
