@@ -1,5 +1,10 @@
 # Change log
 
+## [v3.1.3](https://github.com/nfriedly/set-cookie-parser/tree/v3.1.3) - 2026-10-08
+
+Fixed:
+* Whitespace is now correctly trimmed around the cookie name and value
+
 ## [v3.1.2](https://github.com/nfriedly/set-cookie-parser/tree/v3.1.1) - 2026-07-09
 
 Fixed:
