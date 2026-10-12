@@ -407,6 +407,42 @@ describe("set-cookie-parser", function () {
     });
   });
 
+  describe("max-age attribute (rfc 6265 5.2.2)", function () {
+    it("should ignore a max-age whose value isn't entirely digits", function () {
+      assert.deepEqual(parseSetCookie("id=ok; Max-Age=12junk"), [
+        { name: "id", value: "ok" },
+      ]);
+      assert.deepEqual(parseSetCookie("id=ok; Max-Age=12.5"), [
+        { name: "id", value: "ok" },
+      ]);
+      assert.deepEqual(parseSetCookie("id=ok; Max-Age=+12"), [
+        { name: "id", value: "ok" },
+      ]);
+      assert.deepEqual(parseSetCookie("id=ok; Max-Age="), [
+        { name: "id", value: "ok" },
+      ]);
+    });
+
+    it("should ignore a malformed max-age but keep the cookie and other attributes", function () {
+      assert.deepEqual(
+        parseSetCookie("id=ok; Max-Age=12junk; Path=/; Secure"),
+        [{ name: "id", value: "ok", path: "/", secure: true }]
+      );
+    });
+
+    it("should accept digits and a leading minus", function () {
+      assert.deepEqual(parseSetCookie("id=ok; Max-Age=12"), [
+        { name: "id", value: "ok", maxAge: 12 },
+      ]);
+      assert.deepEqual(parseSetCookie("id=ok; Max-Age=-1"), [
+        { name: "id", value: "ok", maxAge: -1 },
+      ]);
+      assert.deepEqual(parseSetCookie("id=ok; Max-Age=0"), [
+        { name: "id", value: "ok", maxAge: 0 },
+      ]);
+    });
+  });
+
   describe("split option", function () {
     const cookieA = "a=b";
     const cookieB = "b=c";
