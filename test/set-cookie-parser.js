@@ -49,6 +49,40 @@ describe("set-cookie-parser", function () {
     assert.deepEqual(actual, expected);
   });
 
+  it("should ignore invalid Expires attributes", function () {
+    ["not-a-date", "", " "].forEach(function (expires) {
+      assert.deepEqual(
+        parseSetCookie("foo=bar; Expires=" + expires + "; Path=/; HttpOnly"),
+        [{ name: "foo", value: "bar", path: "/", httpOnly: true }]
+      );
+    });
+  });
+
+  it("should preserve a valid Expires before an invalid duplicate", function () {
+    assert.deepEqual(
+      parseSetCookie(
+        "foo=bar; Expires=Wed, 21 Oct 2026 07:28:00 GMT; Expires=not-a-date",
+        { map: true }
+      ),
+      {
+        foo: {
+          name: "foo",
+          value: "bar",
+          expires: new Date("Wed, 21 Oct 2026 07:28:00 GMT"),
+        },
+      }
+    );
+  });
+
+  it("should use the last valid Expires including the Unix epoch", function () {
+    assert.deepEqual(
+      parseString(
+        "foo=bar; Expires=Wed, 21 Oct 2026 07:28:00 GMT; Expires=not-a-date; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+      ),
+      { name: "foo", value: "bar", expires: new Date(0) }
+    );
+  });
+
   it("should parse a weird but valid cookie", function () {
     var cookieStr =
       "foo=bar=bar&foo=foo&John=Doe&Doe=John; Max-Age=1000; Domain=.example.com; Path=/; HttpOnly; Secure";
