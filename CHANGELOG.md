@@ -1,5 +1,11 @@
 # Change log
 
+## [v3.1.4](https://github.com/nfriedly/set-cookie-parser/tree/v3.1.3) - 2026-10-16
+
+Fixed:
+* Invalid Max-Age values are now dropped rather than being coerced to a number ([#90](https://github.com/nfriedly/set-cookie-parser/pull/90))
+* Unparsable Expires values are now dropped rather than being added to the cookie object as an Invalid Date ([#91](https://github.com/nfriedly/set-cookie-parser/pull/91))
+
 ## [v3.1.3](https://github.com/nfriedly/set-cookie-parser/tree/v3.1.3) - 2026-10-08
 
 Fixed:
