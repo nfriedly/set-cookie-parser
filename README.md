@@ -27,6 +27,8 @@ Returns either an array of cookie objects or a map of name => cookie object with
 
 (The output format is loosely based on the input format of https://www.npmjs.com/package/cookie)
 
+Unknown attributes are added to the object automatically unless there's a conflict, in which case a warning is logged. (See [Errors and Warnings](#errors-and-warnings) section below.)
+
 ## Install
 
 ```sh
@@ -150,10 +152,26 @@ Also accepts an optional options object. Defaults:
 {
     decodeValues: true, // Calls decodeURIComponent on each value - default: true
     map: false,         // Return an object instead of an array - default: false
-    silent: false,      // Suppress the warning that is logged when called on a request instead of a response - default: false
+    silent: false,      // Suppress various warnings and errors that would otherwise be logged
     split: 'auto',      // Separate combined cookie headers. Valid options are true/false/'auto'. 'auto' splits strings but not arrays.
 }
 ```
+
+## Errors and Warnings
+
+The library detects and logs (via `console.warn()` and `console.error()`) a variety of conditions, including:
+
+* Calling `parseSetCookie` on a request object with a `Cookie:` header rather than a `Set-Cookie:` header.
+    * An empty array or object is returned.
+* Any cookie where calling `decodeURIComponent()` on the `value` fails.
+    * The original un-decoded value is used.
+    * Set `options.decodeValues=false` to prevent automatic decoding.
+* Cookies with a name that could cause a conflict in JavaScript, such as `__proto__`.
+    * These cookies are dropped entirely.
+* Cookies attributes named `name` or `value` (because these would overwrite the actual name and value), or something like `__proto__`.
+    * These attributes are dropped, but the rest of the cookie is returned.
+
+Setting `options.silent=true` suppresses these and future warnings without changing the behavior of the library.
 
 ## References
 

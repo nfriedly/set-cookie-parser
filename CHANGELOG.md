@@ -1,6 +1,17 @@
 # Change log
 
-## [v3.1.4](https://github.com/nfriedly/set-cookie-parser/tree/v3.1.3) - 2026-10-16
+## [v3.2.0](https://github.com/nfriedly/set-cookie-parser/tree/v3.2.0) - 2026-10-21
+
+Security:
+* Drop attributes named `name` or `value` because they would otherwise overwrite the existing name/value on the output cookie object
+
+Added:
+* Added additional logging when a cookie or attribute is dropped
+
+Changed:
+* Expand `options.silent` to cover all warnings and errors
+
+## [v3.1.4](https://github.com/nfriedly/set-cookie-parser/tree/v3.1.4) - 2026-10-16
 
 Fixed:
 * Invalid Max-Age values are now dropped rather than being coerced to a number ([#90](https://github.com/nfriedly/set-cookie-parser/pull/90))

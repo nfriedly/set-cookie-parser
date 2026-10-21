@@ -294,6 +294,36 @@ describe("set-cookie-parser", function () {
     assert.deepEqual(actual, expected);
   });
 
+  it("should ignore name and value attributes instead of overriding the parsed cookie", function () {
+    // an attribute named "name" or "value" must not overwrite the fields parsed
+    // from the name-value-pair (which would allow a forbidden name through)
+    var actual = parseSetCookie("trk=abc; name=__proto__");
+    var expected = [{ name: "trk", value: "abc" }];
+    assert.deepEqual(actual, expected);
+
+    actual = parseSetCookie("session=REAL; value=ATTACKER");
+    expected = [{ name: "session", value: "REAL" }];
+    assert.deepEqual(actual, expected);
+
+    // attribute keys are matched case-insensitively
+    actual = parseSetCookie("x=1; Name=hasOwnProperty; Value=boom");
+    expected = [{ name: "x", value: "1" }];
+    assert.deepEqual(actual, expected);
+
+    // map mode keeps the cookie under its real name
+    actual = parseSetCookie("trk=abc; name=__proto__", { map: true });
+    expected = { trk: { name: "trk", value: "abc" } };
+    assert.deepEqual(actual, expected);
+
+    // cookies actually named "name" or "value" are still parsed
+    actual = parseSetCookie(["name=foo", "value=bar"]);
+    expected = [
+      { name: "name", value: "foo" },
+      { name: "value", value: "bar" },
+    ];
+    assert.deepEqual(actual, expected);
+  });
+
   it("should trim whitespace around attribute names and values (rfc 6265 5.2 step 3)", function () {
     var actual = parseSetCookie(
       "foo=bar; Domain= .example.com; Path= /admin; SameSite= Lax"
