@@ -170,6 +170,8 @@ The library detects and logs (via `console.warn()` and `console.error()`) a vari
     * These cookies are dropped entirely.
 * Cookies attributes named `name` or `value` (because these would overwrite the actual name and value), or something like `__proto__`.
     * These attributes are dropped, but the rest of the cookie is returned.
+* An `expires` or `max-age` time that cannot be parsed
+    * Attribute is dropped, the rest of the cookie is returned.
 
 Setting `options.silent=true` suppresses these and future warnings without changing the behavior of the library.
 

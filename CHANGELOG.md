@@ -1,5 +1,10 @@
 # Change log
 
+## [v3.2.1](https://github.com/nfriedly/set-cookie-parser/tree/v3.2.1) - 2026-10-21
+
+Added:
+* Added an error log when an `expires` or `max-age` value is un-parseable.
+
 ## [v3.2.0](https://github.com/nfriedly/set-cookie-parser/tree/v3.2.0) - 2026-10-21
 
 Security:
