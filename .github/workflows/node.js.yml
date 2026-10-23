@@ -40,6 +40,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Publish package to NPM
-        run: npm publish --provenance
+        run: npm publish --provenance --tag backports
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
