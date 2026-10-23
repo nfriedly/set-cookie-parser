@@ -67,6 +67,13 @@ Added:
 Removed / Soft-deprecated:
 * default export, `parse()`, `parseString()`, and `splitCookieString()` methods are no longer documented, but are still present for backwards compatibility.
 
+## [v2.7.3](https://github.com/nfriedly/set-cookie-parser/tree/v2.7.3) - 2026-10-23
+
+Security:
+
+* Drop attributes named name or value because they would otherwise overwrite the existing name/value on the output cookie object. (Backport from v3.2.0)
+
+
 ## [v2.7.2](https://github.com/nfriedly/set-cookie-parser/tree/v2.7.2) - 2025-10-27
 
 Fixed:
