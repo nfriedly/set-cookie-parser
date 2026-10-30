@@ -1,5 +1,10 @@
 # Change log
 
+## [v3.2.2](https://github.com/nfriedly/set-cookie-parser/tree/v3.2.2) - 2026-10-30
+
+Fixed:
+* Ignore a set-cookie string whose name-value-pair is empty ([#92](https://github.com/nfriedly/set-cookie-parser/pull/92))
+
 ## [v3.2.1](https://github.com/nfriedly/set-cookie-parser/tree/v3.2.1) - 2026-10-21
 
 Added:
