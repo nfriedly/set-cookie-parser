@@ -280,6 +280,14 @@ describe("set-cookie-parser", function () {
     assert.deepEqual(parseSetCookie(";", { map: true }), {});
   });
 
+  it("should not use an attribute as the name-value-pair when the name-value-pair is empty", function () {
+    assert.deepEqual(parseSetCookie("; Path=/; HttpOnly"), []);
+    assert.deepEqual(parseSetCookie("  ; Secure"), []);
+    assert.deepEqual(parseSetCookie(";; foo=bar"), []);
+    assert.deepEqual(parseSetCookie("; foo=bar", { map: true }), {});
+    assert.equal(parseString("; foo=bar"), null);
+  });
+
   it("should skip cookies that could pollute the object prototype", function () {
     var actual = parseSetCookie("__proto__=test;");
     var expected = [];
