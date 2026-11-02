@@ -61,6 +61,7 @@ export interface Options {
 type ResponseLike = {
   headers:
     | { getSetCookie(): string[] }
+    | { get(name: string): string | null }
     | { "set-cookie"?: string | readonly string[] }
     | Record<string, string | string[] | undefined>;
 };
