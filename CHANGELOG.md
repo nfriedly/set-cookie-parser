@@ -1,5 +1,11 @@
 # Change log
 
+## [v3.2.3](https://github.com/nfriedly/set-cookie-parser/tree/v3.2.3) - 2026-11-16
+
+Fixed:
+* Ignore a set-cookie string whose name-value-pair is just `=` ([#95](https://github.com/nfriedly/set-cookie-parser/pull/95))
+
+
 ## [v3.2.2](https://github.com/nfriedly/set-cookie-parser/tree/v3.2.2) - 2026-10-30
 
 Fixed:
