@@ -288,6 +288,20 @@ describe("set-cookie-parser", function () {
     assert.equal(parseString("; foo=bar"), null);
   });
 
+  it("should ignore a set-cookie string whose name and value are both empty", function () {
+    assert.deepEqual(parseSetCookie("=; Path=/"), []);
+    assert.deepEqual(parseSetCookie(" = "), []);
+    assert.deepEqual(parseSetCookie("\t=\t; Secure"), []);
+    assert.deepEqual(parseSetCookie("=; Path=/", { map: true }), {});
+    assert.equal(parseString("="), null);
+    assert.deepEqual(parseSetCookie(["=", "a=b"]), [{ name: "a", value: "b" }]);
+  });
+
+  it("should keep a cookie when only one of name or value is empty", function () {
+    assert.deepEqual(parseSetCookie("=abc"), [{ name: "", value: "abc" }]);
+    assert.deepEqual(parseSetCookie("foo="), [{ name: "foo", value: "" }]);
+  });
+
   it("should skip cookies that could pollute the object prototype", function () {
     var actual = parseSetCookie("__proto__=test;");
     var expected = [];
