@@ -49,6 +49,81 @@ describe("set-cookie-parser", function () {
     assert.deepEqual(actual, expected);
   });
 
+  it("should read an Expires without a time zone as UTC", function () {
+    var tz = process.env.TZ;
+    process.env.TZ = "America/New_York";
+    try {
+      ["Wed Oct 21 07:28:00 2026", "Wed, 21 Oct 2026 07:28:00"].forEach(
+        function (expires) {
+          assert.deepEqual(parseSetCookie("foo=bar; Expires=" + expires), [
+            {
+              name: "foo",
+              value: "bar",
+              expires: new Date(Date.UTC(2026, 9, 21, 7, 28, 0)),
+            },
+          ]);
+        }
+      );
+    } finally {
+      if (tz === undefined) {
+        delete process.env.TZ;
+      } else {
+        process.env.TZ = tz;
+      }
+    }
+  });
+
+  it("should ignore the time zone in Expires (rfc6265 5.1.1)", function () {
+    [
+      "Wed, 21 Oct 2026 07:28:00 PST",
+      "Wed, 21 Oct 2026 07:28:00 +0200",
+    ].forEach(function (expires) {
+      assert.deepEqual(parseSetCookie("foo=bar; Expires=" + expires), [
+        {
+          name: "foo",
+          value: "bar",
+          expires: new Date(Date.UTC(2026, 9, 21, 7, 28, 0)),
+        },
+      ]);
+    });
+  });
+
+  it("should map two digit Expires years like rfc6265 5.1.1", function () {
+    assert.deepEqual(
+      parseSetCookie("foo=bar; Expires=Thu, 01-Jan-65 00:00:00 GMT"),
+      [{ name: "foo", value: "bar", expires: new Date(Date.UTC(2065, 0, 1)) }]
+    );
+    assert.deepEqual(
+      parseSetCookie("foo=bar; Expires=Sunday, 06-Nov-94 08:49:37 GMT"),
+      [
+        {
+          name: "foo",
+          value: "bar",
+          expires: new Date(Date.UTC(1994, 10, 6, 8, 49, 37)),
+        },
+      ]
+    );
+  });
+
+  it("should ignore an Expires day that doesn't exist", function () {
+    assert.deepEqual(
+      parseSetCookie("foo=bar; Expires=Wed, 31 Feb 2026 07:28:00 GMT", {
+        silent: true,
+      }),
+      [{ name: "foo", value: "bar" }]
+    );
+  });
+
+  it("should still read other Expires formats with new Date()", function () {
+    assert.deepEqual(parseSetCookie("foo=bar; Expires=2026-10-21T07:28:00Z"), [
+      {
+        name: "foo",
+        value: "bar",
+        expires: new Date(Date.UTC(2026, 9, 21, 7, 28, 0)),
+      },
+    ]);
+  });
+
   it("should ignore invalid Expires attributes", function () {
     ["not-a-date", "", " "].forEach(function (expires) {
       assert.deepEqual(
