@@ -1,5 +1,13 @@
 # Change log
 
+## [v4.0.0](https://github.com/nfriedly/set-cookie-parser/tree/v4.0.0) - 2026-11-18
+
+Breaking:
+* All expires times are now parsed as UTC, ignoring any timezone specified in the header ([#97](https://github.com/nfriedly/set-cookie-parser/pull/97))
+   - This matches both RFC6265 and current browser behavior
+   - If a non-UTC timezone is specified a warning will now be logged, suppresable with the `silent: true` option. ([#98](https://github.com/nfriedly/set-cookie-parser/pull/98))
+
+
 ## [v3.2.3](https://github.com/nfriedly/set-cookie-parser/tree/v3.2.3) - 2026-11-16
 
 Fixed:
