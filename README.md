@@ -172,6 +172,8 @@ The library detects and logs (via `console.warn()` and `console.error()`) a vari
     * These attributes are dropped, but the rest of the cookie is returned.
 * An `expires` or `max-age` time that cannot be parsed
     * Attribute is dropped, the rest of the cookie is returned.
+* An `expires` time with a time zone other than GMT/UTC, such as `PST` or `+0200`
+    * Per RFC 6265, cookie dates are always UTC, so the time zone is ignored (like browsers do).
 
 Setting `options.silent=true` suppresses these and future warnings without changing the behavior of the library.
 

@@ -39,4 +39,48 @@ describe("warnings", function () {
 
     sandbox.assert.notCalled(console.warn);
   });
+
+  it("should log a warning when a time zone in expires is ignored", function () {
+    [
+      "Wed, 21 Oct 2026 07:28:00 PST",
+      "Wed, 21 Oct 2026 07:28:00 +0200",
+      "Wed, 21 Oct 2026 07:28:00 -07:00",
+      "Wed, 21 Oct 2026 07:28:00 GMT+2",
+    ].forEach(function (expires) {
+      sandbox.stub(console, "warn");
+      setCookie.parse("foo=bar; Expires=" + expires);
+      sandbox.assert.calledOnce(console.warn);
+      sandbox.assert.calledWith(
+        console.warn,
+        sinon.match("ignoring time zone"),
+        expires
+      );
+      sandbox.restore();
+    });
+  });
+
+  it("should not log a warning for UTC or zone-less expires dates", function () {
+    sandbox.stub(console, "warn");
+    [
+      "Wed, 21 Oct 2026 07:28:00 GMT",
+      "Wed, 21 Oct 2026 07:28:00 UTC",
+      "Wed, 21 Oct 2026 07:28:00 UT",
+      "Wed, 21 Oct 2026 07:28:00 Z",
+      "Wed, 21 Oct 2026 07:28:00 +0000",
+      "Wednesday, 21-Oct-26 07:28:00 GMT",
+      "Wed Oct 21 07:28:00 2026",
+      "2026-10-21T07:28:00Z",
+    ].forEach(function (expires) {
+      setCookie.parse("foo=bar; Expires=" + expires);
+    });
+    sandbox.assert.notCalled(console.warn);
+  });
+
+  it("should not log a warning for an ignored expires time zone when silent: true is set", function () {
+    sandbox.stub(console, "warn");
+    setCookie.parse("foo=bar; Expires=Wed, 21 Oct 2026 07:28:00 PST", {
+      silent: true,
+    });
+    sandbox.assert.notCalled(console.warn);
+  });
 });
