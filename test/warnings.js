@@ -46,6 +46,10 @@ describe("warnings", function () {
       "Wed, 21 Oct 2026 07:28:00 +0200",
       "Wed, 21 Oct 2026 07:28:00 -07:00",
       "Wed, 21 Oct 2026 07:28:00 GMT+2",
+      "Wed, 21 Oct 2026 07:28:00 EST5EDT",
+      "Wed, 21 Oct 2026 07:28:00 CST6CDT",
+      "Wed, 21 Oct 2026 07:28:00 MST7MDT",
+      "Wed, 21 Oct 2026 07:28:00 pst8pdt",
     ].forEach(function (expires) {
       sandbox.stub(console, "warn");
       setCookie.parse("foo=bar; Expires=" + expires);
