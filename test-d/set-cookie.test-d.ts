@@ -95,3 +95,8 @@ setCookieParser.parseSetCookie("foo=bar");
 setCookieParser.parse("foo=bar");
 setCookieParser.parseString("foo=bar");
 setCookieParser.splitCookiesString("foo=bar");
+
+// Headers implementations that predate getSetCookie expose only get().
+parseSetCookie({
+  headers: { get: (_name: string): string | null => "foo=bar" },
+});
