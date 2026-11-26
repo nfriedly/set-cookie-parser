@@ -114,6 +114,19 @@ describe("set-cookie-parser", function () {
     );
   });
 
+  it("should ignore an Expires with a time or year out of range (rfc6265 5.1.1)", function () {
+    [
+      "Wed, 21 Oct 2026 24:00:00 GMT",
+      "Wed, 21 Oct 2026 07:28:60 GMT",
+      "Wed, 21 Oct 1600 07:28:00 GMT",
+    ].forEach(function (expires) {
+      assert.deepEqual(
+        parseSetCookie("foo=bar; Expires=" + expires, { silent: true }),
+        [{ name: "foo", value: "bar" }]
+      );
+    });
+  });
+
   it("should still read other Expires formats with new Date()", function () {
     assert.deepEqual(parseSetCookie("foo=bar; Expires=2026-10-21T07:28:00Z"), [
       {
